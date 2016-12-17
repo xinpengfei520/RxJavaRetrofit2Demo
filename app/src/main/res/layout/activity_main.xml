@@ -79,6 +79,30 @@
                 android:text="Rx-Retrofit-h"
                 android:textAllCaps="false" />
 
+            <Button
+                android:id="@+id/get5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="HttpUrlConnection"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/get6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="VolleyDemo"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/get7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Okhttp3Demo"
+                android:textAllCaps="false" />
+
             <LinearLayout
                 android:id="@+id/viewShell"
                 android:layout_width="match_parent"

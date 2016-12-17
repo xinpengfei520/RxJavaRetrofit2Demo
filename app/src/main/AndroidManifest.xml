@@ -18,6 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".app.HttpUrlConnectionAcitivity" />
+        <activity android:name=".app.VolleyDemoActivity" />
+        <activity android:name=".app.Okhttp3DemoActivity"></activity>
     </application>
 
 </manifest>

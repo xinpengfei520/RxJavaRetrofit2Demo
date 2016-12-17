@@ -1,9 +1,10 @@
 package com.xpf.rxjavaretrofit2demo;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +18,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.xpf.rxjavaretrofit2demo.api.GithubService;
+import com.xpf.rxjavaretrofit2demo.app.HttpUrlConnectionAcitivity;
+import com.xpf.rxjavaretrofit2demo.app.Okhttp3DemoActivity;
+import com.xpf.rxjavaretrofit2demo.app.VolleyDemoActivity;
 import com.xpf.rxjavaretrofit2demo.bean.GithubUserBean;
 import com.xpf.rxjavaretrofit2demo.bean.UserFollowerBean;
 import com.xpf.rxjavaretrofit2demo.utils.GenServiceUtil;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -43,7 +46,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 // Retrofit2 + RxJava Demo
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private final String TAG = MainActivity.class.getSimpleName();
     private final String BASE_URL = "https://api.github.com/";
@@ -63,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
     Button get3;
     @BindView(R.id.get4)
     Button get4;
+    @BindView(R.id.get5)
+    Button get5;
+    @BindView(R.id.get6)
+    Button get6;
+    @BindView(R.id.get7)
+    Button get7;
     @BindView(R.id.viewShell)
     LinearLayout viewShell;
 
@@ -80,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         loading.setMessage("loading...");
     }
 
-    @OnClick({R.id.get0, R.id.get1, R.id.get2, R.id.get3, R.id.get4})
+    @OnClick({R.id.get0, R.id.get1, R.id.get2, R.id.get3, R.id.get4, R.id.get5, R.id.get6, R.id.get7})
     public void onClick(View view) {
         viewShell.removeAllViews();
         loading.show();
@@ -103,6 +112,18 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.get4:
                 RxRetrofitList();
+                break;
+            case R.id.get5:
+                loading.dismiss();
+                startActivity(new Intent(MainActivity.this, HttpUrlConnectionAcitivity.class));
+                break;
+            case R.id.get6:
+                loading.dismiss();
+                startActivity(new Intent(MainActivity.this, VolleyDemoActivity.class));
+                break;
+            case R.id.get7:
+                loading.dismiss();
+                startActivity(new Intent(MainActivity.this, Okhttp3DemoActivity.class));
                 break;
         }
     }
@@ -189,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     bean = call.execute();
                     subscriber.onNext(bean.body());
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     subscriber.onError(e);
                 }
@@ -307,7 +328,6 @@ public class MainActivity extends AppCompatActivity {
         if (userBean != null) {
             viewShell.removeAllViews();
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_user, null);
-
             TextView title = (TextView) view.findViewById(R.id.title);
             TextView id = (TextView) view.findViewById(R.id.userId);
             TextView createTime = (TextView) view.findViewById(R.id.createTime);
