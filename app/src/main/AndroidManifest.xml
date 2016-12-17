@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".app.HttpUrlConnectionAcitivity" />
         <activity android:name=".app.VolleyDemoActivity" />
-        <activity android:name=".app.Okhttp3DemoActivity"></activity>
+        <activity android:name=".app.Okhttp3DemoActivity" />
+        <activity android:name=".app.RxJavaDemoActivity"></activity>
     </application>
 
 </manifest>

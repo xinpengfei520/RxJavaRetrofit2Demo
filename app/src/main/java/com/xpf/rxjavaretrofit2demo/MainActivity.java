@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.xpf.rxjavaretrofit2demo.api.GithubService;
 import com.xpf.rxjavaretrofit2demo.app.HttpUrlConnectionAcitivity;
 import com.xpf.rxjavaretrofit2demo.app.Okhttp3DemoActivity;
+import com.xpf.rxjavaretrofit2demo.app.RxJavaDemoActivity;
 import com.xpf.rxjavaretrofit2demo.app.VolleyDemoActivity;
 import com.xpf.rxjavaretrofit2demo.bean.GithubUserBean;
 import com.xpf.rxjavaretrofit2demo.bean.UserFollowerBean;
@@ -72,6 +73,8 @@ public class MainActivity extends Activity {
     Button get6;
     @BindView(R.id.get7)
     Button get7;
+    @BindView(R.id.get8)
+    Button get8;
     @BindView(R.id.viewShell)
     LinearLayout viewShell;
 
@@ -89,7 +92,7 @@ public class MainActivity extends Activity {
         loading.setMessage("loading...");
     }
 
-    @OnClick({R.id.get0, R.id.get1, R.id.get2, R.id.get3, R.id.get4, R.id.get5, R.id.get6, R.id.get7})
+    @OnClick({R.id.get0, R.id.get1, R.id.get2, R.id.get3, R.id.get4, R.id.get5, R.id.get6, R.id.get7, R.id.get8})
     public void onClick(View view) {
         viewShell.removeAllViews();
         loading.show();
@@ -124,6 +127,10 @@ public class MainActivity extends Activity {
             case R.id.get7:
                 loading.dismiss();
                 startActivity(new Intent(MainActivity.this, Okhttp3DemoActivity.class));
+                break;
+            case R.id.get8:
+                loading.dismiss();
+                startActivity(new Intent(MainActivity.this, RxJavaDemoActivity.class));
                 break;
         }
     }

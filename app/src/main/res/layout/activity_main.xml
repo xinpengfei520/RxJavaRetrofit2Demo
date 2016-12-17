@@ -103,6 +103,14 @@
                 android:text="Okhttp3Demo"
                 android:textAllCaps="false" />
 
+            <Button
+                android:id="@+id/get8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="RxJavaDemo"
+                android:textAllCaps="false" />
+
             <LinearLayout
                 android:id="@+id/viewShell"
                 android:layout_width="match_parent"
