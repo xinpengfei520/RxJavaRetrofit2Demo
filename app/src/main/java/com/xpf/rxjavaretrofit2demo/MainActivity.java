@@ -16,15 +16,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.xpf.rxjavaretrofit2demo.api.GithubService;
-import com.xpf.rxjavaretrofit2demo.app.HttpUrlConnectionAcitivity;
+import com.xpf.rxjavaretrofit2demo.api.Request;
+import com.xpf.rxjavaretrofit2demo.app.HttpUrlConnectionActivity;
 import com.xpf.rxjavaretrofit2demo.app.Okhttp3DemoActivity;
 import com.xpf.rxjavaretrofit2demo.app.RxJavaDemoActivity;
+import com.xpf.rxjavaretrofit2demo.app.SimpleRetrofit;
 import com.xpf.rxjavaretrofit2demo.app.VolleyDemoActivity;
 import com.xpf.rxjavaretrofit2demo.bean.GithubUserBean;
 import com.xpf.rxjavaretrofit2demo.bean.UserFollowerBean;
 import com.xpf.rxjavaretrofit2demo.utils.GenServiceUtil;
+import com.xpf.rxjavaretrofit2demo.utils.ToastUtil;
+import com.xpf.rxjavaretrofit2demo.view.XDialog;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,7 +37,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +52,6 @@ import rx.schedulers.Schedulers;
 public class MainActivity extends Activity {
 
     private final String TAG = MainActivity.class.getSimpleName();
-    private final String BASE_URL = "https://api.github.com/";
     private Context mContext;
     private String name;
     private ProgressDialog loading;
@@ -84,25 +85,24 @@ public class MainActivity extends Activity {
         mContext = this; // 接受上下文要放在第一行
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        loading = new ProgressDialog(mContext);
-        loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        loading.setIndeterminate(true);
-        loading.setInverseBackgroundForced(true);
-        loading.setMessage("loading...");
+        loading = XDialog.create(this);
     }
 
     @OnClick({R.id.get0, R.id.get1, R.id.get2, R.id.get3, R.id.get4, R.id.get5, R.id.get6, R.id.get7, R.id.get8})
     public void onClick(View view) {
-        viewShell.removeAllViews();
-        loading.show();
         name = username.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
-            name = "xinpengfei520";
+            ToastUtil.showShort("Input is empty!");
+            return;
         }
+        viewShell.removeAllViews();
+        loading.show();
+
         switch (view.getId()) {
             case R.id.get0:
-                SimpleRetrofit();
+                Intent intent = new Intent(MainActivity.this, SimpleRetrofit.class);
+                intent.putExtra("account", name);
+                startActivity(intent);
                 break;
             case R.id.get1:
                 LazyRetrofit();
@@ -118,7 +118,7 @@ public class MainActivity extends Activity {
                 break;
             case R.id.get5:
                 loading.dismiss();
-                startActivity(new Intent(MainActivity.this, HttpUrlConnectionAcitivity.class));
+                startActivity(new Intent(MainActivity.this, HttpUrlConnectionActivity.class));
                 break;
             case R.id.get6:
                 loading.dismiss();
@@ -280,7 +280,7 @@ public class MainActivity extends Activity {
         Retrofit.Builder builder =
                 new Retrofit
                         .Builder()
-                        .baseUrl(BASE_URL)
+                        .baseUrl(Request.BASE_URL)
                         // add converter bean factory
                         .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.client(httpClient.build()).build();
@@ -296,36 +296,6 @@ public class MainActivity extends Activity {
 
             @Override
             public void onFailure(Call<GithubUserBean> call, Throwable t) {
-                loading.dismiss();
-            }
-        });
-    }
-
-    private void SimpleRetrofit() {
-        OkHttpClient.Builder httpClient = new OkHttpClient().newBuilder();
-        Retrofit.Builder builder =
-                new Retrofit
-                        .Builder()
-                        .baseUrl(BASE_URL);
-        Retrofit retrofit = builder.client(httpClient.build()).build();
-        GithubService githubService = retrofit.create(GithubService.class);
-        Call<ResponseBody> call = githubService.getUserString(name);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                loading.dismiss();
-                try {
-                    String result = response.body().string();
-                    GithubUserBean userBean = new Gson().fromJson(result, GithubUserBean.class);
-                    setUserView(userBean);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "not find such user", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 loading.dismiss();
             }
         });

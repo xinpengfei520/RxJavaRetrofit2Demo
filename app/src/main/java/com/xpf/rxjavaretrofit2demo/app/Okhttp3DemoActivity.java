@@ -171,7 +171,7 @@ public class Okhttp3DemoActivity extends Activity {
 
         @Override
         public void onFailure(Call call, IOException e) {
-            Message msg = new Message();
+            Message msg = Message.obtain();
             msg.what = 100;
             msg.obj = e;
             handler.sendMessage(msg);
@@ -179,7 +179,7 @@ public class Okhttp3DemoActivity extends Activity {
 
         @Override
         public void onResponse(Call call, Response response) throws IOException {
-            Message msg = new Message();
+            Message msg = Message.obtain();
             msg.what = 200;
             msg.obj = response.body().string();
             handler.sendMessage(msg);
