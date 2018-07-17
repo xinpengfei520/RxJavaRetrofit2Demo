@@ -129,11 +129,11 @@ public class RxJavaDemoActivity extends Activity {
                         Log.e(RxJavaDemoActivity.class.getSimpleName(), "onNext---- >Remainder is " + integer);
                     }
                 });
-        BackpressureTest();
+        BackPressureTest();
     }
 
     // 背压测试
-    private void BackpressureTest() {
+    private void BackPressureTest() {
         Observable
                 .interval(1, TimeUnit.MILLISECONDS)
                 .observeOn(Schedulers.newThread())

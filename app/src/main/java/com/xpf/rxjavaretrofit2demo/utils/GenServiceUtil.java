@@ -1,5 +1,7 @@
 package com.xpf.rxjavaretrofit2demo.utils;
 
+import com.xpf.rxjavaretrofit2demo.api.Request;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -13,12 +15,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GenServiceUtil {
 
-    private static final String BASE_URL = "https://api.github.com/";
-
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     private static Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Request.BASE_URL)
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create());
 

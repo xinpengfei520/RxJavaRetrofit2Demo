@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="UserName"
+            android:text="UserName:"
             android:textColor="@android:color/white" />
 
         <EditText
@@ -26,7 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:background="@null"
-            android:gravity="left" />
+            android:gravity="left"
+            android:hint="Input your github account to here."
+            android:singleLine="true"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
@@ -44,72 +47,90 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
                 android:text="Simple"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/get1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
                 android:text="LazyRetrofit"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/get2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
                 android:text="EasyRetrofit"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/get3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
                 android:text="Rx-Retrofit"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/get4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
                 android:text="Rx-Retrofit-h"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/get5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
                 android:text="HttpUrlConnection"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/get6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
                 android:text="VolleyDemo"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/get7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
                 android:text="Okhttp3Demo"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <Button
                 android:id="@+id/get8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
                 android:text="RxJavaDemo"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
 
             <LinearLayout
                 android:id="@+id/viewShell"

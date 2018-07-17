@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HttpUrlConnectionAcitivity extends Activity {
+public class HttpUrlConnectionActivity extends Activity {
 
     @BindView(R.id.button)
     Button button;
