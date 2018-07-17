@@ -1,5 +1,6 @@
-package com.xpf.rxjavaretrofit2demo.app;
+package com.xpf.rxjavaretrofit2demo.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.xpf.rxjavaretrofit2demo.R;
+import com.xpf.rxjavaretrofit2demo.api.RequestUrl;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,8 +40,6 @@ import okhttp3.Response;
 // Okhttp3异步请求的回调不在UI线程当中
 public class Okhttp3DemoActivity extends Activity {
 
-    private final String BASE_URL = "https://api.github.com/";
-    private final String DOWNLOAD_URL = "http://dl.bizhi.sogou.com/images/2015/06/26/1214911.jpg";
     private final String FILE_PATH = Environment.getExternalStorageDirectory().getPath() + File.separator + "test.jpg";
     private Context mContext;
     private OkHttpClient client;
@@ -60,6 +60,7 @@ public class Okhttp3DemoActivity extends Activity {
     @BindView(R.id.image)
     ImageView image;
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             loading.setVisibility(View.GONE);
@@ -68,12 +69,10 @@ public class Okhttp3DemoActivity extends Activity {
                     Object e = msg.obj;
                     Toast.makeText(mContext, e.toString(), Toast.LENGTH_SHORT).show();
                     break;
-
                 case 200:
                     String response = (String) msg.obj;
                     tv.setText(response);
                     break;
-
                 case 300:
                     int percent = msg.arg1;
                     Log.e("TAG", "percent===" + percent);
@@ -128,7 +127,7 @@ public class Okhttp3DemoActivity extends Activity {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             client = new OkHttpClient();
             request = new Request.Builder()
-                    .url(DOWNLOAD_URL)
+                    .url(RequestUrl.DOWNLOAD_URL)
                     .build();
             downloadCall = client.newCall(request);
             downloadCall.enqueue(new DownloadCallback());
@@ -145,7 +144,7 @@ public class Okhttp3DemoActivity extends Activity {
                 .build();
         request = new Request
                 .Builder()
-                .url(BASE_URL)
+                .url(RequestUrl.BASE_URL)
                 .post(formBody)
                 .build();
         Call mCall = client.newCall(request);
@@ -159,7 +158,7 @@ public class Okhttp3DemoActivity extends Activity {
         Request.Builder builder =
                 new Request
                         .Builder()
-                        .url(BASE_URL)
+                        .url(RequestUrl.BASE_URL)
                         .method("GET", null);
 
         request = builder.build();

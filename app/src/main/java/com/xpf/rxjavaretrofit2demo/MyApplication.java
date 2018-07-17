@@ -11,7 +11,7 @@ import com.orhanobut.logger.Logger;
  * Function:
  */
 
-public class XApplication extends Application {
+public class MyApplication extends Application {
 
     private static Context mContext;
 

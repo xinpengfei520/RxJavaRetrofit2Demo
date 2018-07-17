@@ -17,12 +17,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.xpf.rxjavaretrofit2demo.api.GithubService;
-import com.xpf.rxjavaretrofit2demo.api.Request;
-import com.xpf.rxjavaretrofit2demo.app.HttpUrlConnectionActivity;
-import com.xpf.rxjavaretrofit2demo.app.Okhttp3DemoActivity;
-import com.xpf.rxjavaretrofit2demo.app.RxJavaDemoActivity;
-import com.xpf.rxjavaretrofit2demo.app.SimpleRetrofit;
-import com.xpf.rxjavaretrofit2demo.app.VolleyDemoActivity;
+import com.xpf.rxjavaretrofit2demo.api.RequestUrl;
+import com.xpf.rxjavaretrofit2demo.activity.HttpUrlConnectionActivity;
+import com.xpf.rxjavaretrofit2demo.activity.Okhttp3DemoActivity;
+import com.xpf.rxjavaretrofit2demo.activity.RxJavaDemoActivity;
+import com.xpf.rxjavaretrofit2demo.activity.SimpleRetrofit;
+import com.xpf.rxjavaretrofit2demo.activity.VolleyDemoActivity;
 import com.xpf.rxjavaretrofit2demo.bean.GithubUserBean;
 import com.xpf.rxjavaretrofit2demo.bean.UserFollowerBean;
 import com.xpf.rxjavaretrofit2demo.utils.GenServiceUtil;
@@ -280,7 +280,7 @@ public class MainActivity extends Activity {
         Retrofit.Builder builder =
                 new Retrofit
                         .Builder()
-                        .baseUrl(Request.BASE_URL)
+                        .baseUrl(RequestUrl.BASE_URL)
                         // add converter bean factory
                         .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.client(httpClient.build()).build();

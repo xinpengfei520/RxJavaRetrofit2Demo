@@ -1,4 +1,4 @@
-package com.xpf.rxjavaretrofit2demo.app;
+package com.xpf.rxjavaretrofit2demo.activity;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.xpf.rxjavaretrofit2demo.R;
+import com.xpf.rxjavaretrofit2demo.api.RequestUrl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +26,6 @@ public class HttpUrlConnectionActivity extends Activity {
     Button button;
     @BindView(R.id.tv)
     TextView tv;
-    private final String BASE_URL = "https://api.github.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class HttpUrlConnectionActivity extends Activity {
 
     @OnClick(R.id.button)
     public void onClick() {
-        new MyAsyncTask().execute(BASE_URL);
+        new MyAsyncTask().execute(RequestUrl.BASE_URL);
     }
 
     class MyAsyncTask extends AsyncTask<String, Void, String> {

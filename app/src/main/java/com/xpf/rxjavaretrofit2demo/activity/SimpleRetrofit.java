@@ -1,4 +1,4 @@
-package com.xpf.rxjavaretrofit2demo.app;
+package com.xpf.rxjavaretrofit2demo.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.orhanobut.logger.Logger;
 import com.xpf.rxjavaretrofit2demo.R;
 import com.xpf.rxjavaretrofit2demo.api.GithubService;
-import com.xpf.rxjavaretrofit2demo.api.Request;
+import com.xpf.rxjavaretrofit2demo.api.RequestUrl;
 import com.xpf.rxjavaretrofit2demo.utils.ToastUtil;
 import com.xpf.rxjavaretrofit2demo.view.XDialog;
 
@@ -47,7 +47,7 @@ public class SimpleRetrofit extends AppCompatActivity {
         Retrofit.Builder builder =
                 new Retrofit
                         .Builder()
-                        .baseUrl(Request.BASE_URL);
+                        .baseUrl(RequestUrl.BASE_URL);
         Retrofit retrofit = builder.client(httpClient.build()).build();
         GithubService githubService = retrofit.create(GithubService.class);
         Call<ResponseBody> call = githubService.getUserString(account);

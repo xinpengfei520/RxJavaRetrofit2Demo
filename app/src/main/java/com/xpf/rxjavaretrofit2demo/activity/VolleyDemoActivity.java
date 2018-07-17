@@ -1,4 +1,4 @@
-package com.xpf.rxjavaretrofit2demo.app;
+package com.xpf.rxjavaretrofit2demo.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.xpf.rxjavaretrofit2demo.R;
+import com.xpf.rxjavaretrofit2demo.api.RequestUrl;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +25,6 @@ public class VolleyDemoActivity extends Activity {
     Button btn;
     @BindView(R.id.tv)
     TextView tv;
-    private final String BASE_URL = "https://api.github.com/";
     private RequestQueue queue;
     private StringRequest request;
 
@@ -35,7 +35,7 @@ public class VolleyDemoActivity extends Activity {
         ButterKnife.bind(this);
 
         queue = Volley.newRequestQueue(this);
-        request = new StringRequest(Request.Method.GET, BASE_URL,
+        request = new StringRequest(Request.Method.GET, RequestUrl.BASE_URL,
                 new ResponseSuccessListener(), new ResponseFailListener());
     }
 

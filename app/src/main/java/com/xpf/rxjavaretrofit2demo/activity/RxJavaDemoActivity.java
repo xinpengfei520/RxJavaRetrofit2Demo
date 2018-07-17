@@ -1,4 +1,4 @@
-package com.xpf.rxjavaretrofit2demo.app;
+package com.xpf.rxjavaretrofit2demo.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -46,7 +46,6 @@ public class RxJavaDemoActivity extends Activity {
     }
 
     private void initData() {
-
         datas = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             datas.add("item_" + i);
