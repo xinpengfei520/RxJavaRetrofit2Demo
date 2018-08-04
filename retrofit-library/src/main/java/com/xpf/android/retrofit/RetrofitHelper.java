@@ -38,7 +38,7 @@ public class RetrofitHelper {
      * private constructor.
      */
     private RetrofitHelper() {
-        // HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(MyApplication.getIntstance(), new int[0], R.raw.ivms8700, STORE_PASS);
+        //HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(MyApplication.getIntstance(), new int[0], R.raw.ivms8700, STORE_PASS);
         client = new OkHttpClient.Builder()
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)

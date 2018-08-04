@@ -218,3 +218,7 @@ Map 作为请求的 Body
                     }
                 });
 ```
+
+## TODO
+
+outside flexible config & RetrofitHelper need Application Context.
