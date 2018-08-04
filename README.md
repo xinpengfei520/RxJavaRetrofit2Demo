@@ -38,14 +38,14 @@ Retrofit2 + RxJava Demo
 
 **retrofit-library** 是对 Retrofit 进行的封装，让使用更加方便，更加通用，可以配置缓存、Cookie、设置拦截器等。
 
-**createService(ApiService.class)** 中的 **ApiService.class** 可以省略，即默认为，或者传入自己定义的 Service.
+**createService(ApiService.class)** 中的 **ApiService.class** 可以省略，即默认为 **ApiService.class**，或者传入自己定义的 Service.
 
 ### 2.1 Post Map Request
 
 Map 作为请求的 Body
 
 ```
-		RetrofitHelper
+	RetrofitHelper
                 .getInstance()
                 .createService(ApiService.class)
                 .postMapBody(RequestUrl.url, map)
@@ -78,7 +78,7 @@ Map 作为请求的 Body
 
 	RequestBody body = Converter.toBody(object);
 
-		RetrofitHelper
+	RetrofitHelper
                 .getInstance()
                 .createService(ApiService.class)
                 .postRequestBody(RequestUrl.url, body)
@@ -108,7 +108,7 @@ Map 作为请求的 Body
 提交表单数据
 
 ```
-		RetrofitHelper
+	RetrofitHelper
                 .getInstance()
                 .createService(ApiService.class)
                 .postFormData(RequestUrl.url, map)
@@ -138,7 +138,7 @@ Map 作为请求的 Body
 可以动态传入 URL (不同域的url) 如果是传入的是 Path，则会和 Base_url 拼接，如果是全域url，则会忽略Base_url(覆盖掉);注意仅仅是本次请求!
 
 ```
-		RetrofitHelper
+	RetrofitHelper
                 .getInstance()
                 .createService(ApiService.class)
                 .postUrlBody(RequestUrl.url, body)
@@ -166,7 +166,7 @@ Map 作为请求的 Body
 ### 2.5 不带参数的 get 请求
 
 ```
-		RetrofitHelper
+	RetrofitHelper
                 .getInstance()
                 .createService(ApiService.class)
                 .getRequest(RequestUrl.url)
@@ -194,7 +194,7 @@ Map 作为请求的 Body
 ### 2.6 带参数的 get 请求
 
 ```
-		RetrofitHelper
+	RetrofitHelper
                 .getInstance()
                 .createService(ApiService.class)
                 .getMapParam(RequestUrl.url, map)
