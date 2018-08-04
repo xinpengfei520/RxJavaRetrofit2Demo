@@ -22,6 +22,10 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
+/**
+ * Created by x-sir on 2016-12-21 :)
+ * Function:RxJavaDemoActivity
+ */
 public class RxJavaDemoActivity extends Activity {
 
     private static final String TAG = "RxJavaDemoActivity";

@@ -37,7 +37,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-// Okhttp3异步请求的回调不在UI线程当中
+/**
+ * Created by x-sir on 2016-12-21 :)
+ * Function:Okhttp3异步请求的回调不在UI线程当中
+ */
 public class Okhttp3DemoActivity extends Activity {
 
     private final String FILE_PATH = Environment.getExternalStorageDirectory().getPath() + File.separator + "test.jpg";
@@ -93,7 +96,10 @@ public class Okhttp3DemoActivity extends Activity {
         mContext = this;
         setContentView(R.layout.activity_okhttp3_demo);
         ButterKnife.bind(this);
+        initProgressDialog();
+    }
 
+    private void initProgressDialog() {
         progressDialog = new ProgressDialog(mContext);
         progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
             @Override
@@ -134,6 +140,9 @@ public class Okhttp3DemoActivity extends Activity {
         }
     }
 
+    /**
+     * post form data.
+     */
     private void postMethod() {
         tv.setText("");
         loading.setVisibility(View.VISIBLE);
@@ -151,6 +160,9 @@ public class Okhttp3DemoActivity extends Activity {
         mCall.enqueue(new MyCallback());
     }
 
+    /**
+     * get request without parameters.
+     */
     private void getMethod() {
         tv.setText("");
         loading.setVisibility(View.VISIBLE);
@@ -216,5 +228,11 @@ public class Okhttp3DemoActivity extends Activity {
             }
             fileOutputStream.flush();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
     }
 }

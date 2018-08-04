@@ -144,6 +144,7 @@ public class MainActivity extends Activity {
                 .map(new Func1<List<UserFollowerBean>, List<UserFollowerBean>>() {
                     @Override
                     public List<UserFollowerBean> call(List<UserFollowerBean> userFollowerBeen) {
+                        // 遍历转大写
                         for (UserFollowerBean bean : userFollowerBeen) {
                             String name;
                             name = bean.getLogin().substring(0, 1).toUpperCase() +
@@ -156,6 +157,7 @@ public class MainActivity extends Activity {
                 .map(new Func1<List<UserFollowerBean>, List<UserFollowerBean>>() {
                     @Override
                     public List<UserFollowerBean> call(List<UserFollowerBean> userFollowerBeen) {
+                        // 排序
                         Collections.sort(userFollowerBeen, new Comparator<UserFollowerBean>() {
                             @Override
                             public int compare(UserFollowerBean o1, UserFollowerBean o2) {
@@ -206,6 +208,9 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * RxJava + Retrofit
+     */
     private void RxRetrofit() {
         GithubService service = GenServiceUtil.createService(GithubService.class);
         final Call<GithubUserBean> call = service.getUser(name);
@@ -256,6 +261,9 @@ public class MainActivity extends Activity {
                 });
     }
 
+    /**
+     * 使用 GenServiceUtil 进行简单封装
+     */
     private void EasyRetrofit() {
         GithubService service = GenServiceUtil.createService(GithubService.class);
         Call<GithubUserBean> call = service.getUser(name);

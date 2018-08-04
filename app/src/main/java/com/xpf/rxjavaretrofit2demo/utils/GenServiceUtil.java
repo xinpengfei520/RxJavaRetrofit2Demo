@@ -12,7 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * GitHub:xinpengfei520
  * Function:
  */
-
 public class GenServiceUtil {
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();

@@ -5,7 +5,6 @@ package com.xpf.rxjavaretrofit2demo.bean;
  * GitHub:xinpengfei520
  * Function:GitHub User's Bean Class
  */
-
 public class GithubUserBean {
 
     private String login;

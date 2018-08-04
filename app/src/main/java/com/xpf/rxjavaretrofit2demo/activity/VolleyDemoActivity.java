@@ -19,6 +19,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Created by x-sir on 2016-12-21 :)
+ * Function:VolleyDemoActivity
+ */
 public class VolleyDemoActivity extends Activity {
 
     @BindView(R.id.Volley)
@@ -33,7 +37,6 @@ public class VolleyDemoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volley_demo);
         ButterKnife.bind(this);
-
         queue = Volley.newRequestQueue(this);
         request = new StringRequest(Request.Method.GET, RequestUrl.BASE_URL,
                 new ResponseSuccessListener(), new ResponseFailListener());

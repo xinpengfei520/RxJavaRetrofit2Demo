@@ -20,6 +20,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Created by x-sir on 2016-12-21 :)
+ * Function:HttpURLConnection + AsyncTask 实现异步网络请求
+ */
 public class HttpUrlConnectionActivity extends Activity {
 
     @BindView(R.id.button)

@@ -19,7 +19,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-
         // init logger adapter
         Logger.addLogAdapter(new AndroidLogAdapter());
     }

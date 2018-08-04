@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
  * Created by xpf on 2017/12/28 :)
  * Function:
  */
-
 public class XDialog {
 
     public static ProgressDialog create(@NonNull Context context) {

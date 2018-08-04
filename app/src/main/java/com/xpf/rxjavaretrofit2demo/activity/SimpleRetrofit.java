@@ -21,11 +21,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+/**
+ * Created by x-sir on 2016-12-21 :)
+ * Function:SimpleRetrofit
+ */
 public class SimpleRetrofit extends AppCompatActivity {
 
-    private static final String TAG = SimpleRetrofit.class.getSimpleName();
     private TextView textView;
     private ProgressDialog progressDialog;
+    private static final String TAG = SimpleRetrofit.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +48,7 @@ public class SimpleRetrofit extends AppCompatActivity {
 
     private void simpleRetrofit(String account) {
         OkHttpClient.Builder httpClient = new OkHttpClient().newBuilder();
-        Retrofit.Builder builder =
-                new Retrofit
+        Retrofit.Builder builder = new Retrofit
                         .Builder()
                         .baseUrl(RequestUrl.BASE_URL);
         Retrofit retrofit = builder.client(httpClient.build()).build();
