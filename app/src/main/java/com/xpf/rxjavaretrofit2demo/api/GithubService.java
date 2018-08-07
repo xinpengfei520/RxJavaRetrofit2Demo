@@ -26,4 +26,9 @@ public interface GithubService {
 
     @GET("users/{user}/followers")
     rx.Observable<List<UserFollowerBean>> followers(@Path("user") String usr);
+
+    //--------------------- Test--------------------------------------------
+
+    @GET("users/xinpengfei520")
+    Call<ResponseBody> getUserString();
 }
