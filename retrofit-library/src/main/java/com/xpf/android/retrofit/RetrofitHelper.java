@@ -4,17 +4,19 @@ import android.content.Context;
 
 import com.xpf.android.retrofit.cookie.HttpCookieManger;
 import com.xpf.android.retrofit.intercepter.HttpCacheInterceptor;
+import com.xpf.android.retrofit.intercepter.LoggerInterceptor;
 import com.xpf.android.retrofit.service.ApiService;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by x-sir on 2018/8/1 :)
- * Function:RetrofitHelper
+ * Function:RetrofitHelper singleton class.
  */
 public class RetrofitHelper {
 
@@ -46,7 +48,7 @@ public class RetrofitHelper {
                 //.sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
                 //.hostnameVerifier(HttpsUtils.getHostnameVerifier())
                 //.addInterceptor(new HeaderInterceptor()) // 添加请求头
-                //.addInterceptor(new LoggerInterceptor("===", true)) // 添加日志打印拦截器
+                .addInterceptor(new LoggerInterceptor(true)) // 添加日志打印拦截器
                 .cookieJar(new HttpCookieManger(mContext))
                 .addNetworkInterceptor(new HttpCacheInterceptor(mContext))
                 //.cache(new HttpCache(mContext).getCache())
@@ -58,7 +60,7 @@ public class RetrofitHelper {
                 .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create()) // 添加 Gson 解析
-                //.addCallAdapterFactory(RxJavaCallAdapterFactory.create()) // 添加rxJava
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) // 添加rxJava
                 .build();
     }
 

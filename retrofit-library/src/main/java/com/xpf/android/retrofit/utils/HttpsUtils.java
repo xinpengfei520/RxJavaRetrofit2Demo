@@ -22,9 +22,10 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 /**
- * Created by zhy on 15/12/14.
+ * Created by xpf on 16/10/24.
  */
 public class HttpsUtils {
+
     public static class SSLParams {
         public SSLSocketFactory sSLSocketFactory;
         public X509TrustManager trustManager;

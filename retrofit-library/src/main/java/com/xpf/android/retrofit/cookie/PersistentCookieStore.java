@@ -26,12 +26,11 @@ import okhttp3.HttpUrl;
  * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class PersistentCookieStore {
+
     private static final String LOG_TAG = "PersistentCookieStore";
     private static final String COOKIE_PREFS = "Cookies_Prefs";
-
     private final Map<String, ConcurrentHashMap<String, Cookie>> cookies;
     private final SharedPreferences cookiePrefs;
-
 
     public PersistentCookieStore(Context context) {
         cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, 0);
