@@ -23,6 +23,8 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  * Created by xpf on 16/10/24.
+ * Function:
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class HttpsUtils {
 

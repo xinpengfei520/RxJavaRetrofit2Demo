@@ -24,6 +24,7 @@ import retrofit2.http.Url;
 /**
  * Created by x-sir on 2018/8/1 :)
  * Function:
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public interface ApiService {
 

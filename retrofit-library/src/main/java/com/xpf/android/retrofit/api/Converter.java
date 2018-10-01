@@ -10,6 +10,7 @@ import okhttp3.RequestBody;
 /**
  * Created by x-sir on 2018/8/3 :)
  * Function:
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class Converter {
 
@@ -20,6 +21,7 @@ public class Converter {
 
     /**
      * post request object serializable to json string.
+     *
      * @param object
      * @return
      */

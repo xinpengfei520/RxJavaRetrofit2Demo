@@ -13,6 +13,7 @@ import okio.Buffer;
 /**
  * Created by x-sir on 2018/8/3 :)
  * Function:HeaderInterceptor
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class HeaderInterceptor implements Interceptor {
 

@@ -17,6 +17,7 @@ import okhttp3.Response;
 /**
  * Created by x-sir on 2018/8/3 :)
  * Function:HttpCacheInterceptor
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class HttpCacheInterceptor implements Interceptor {
 

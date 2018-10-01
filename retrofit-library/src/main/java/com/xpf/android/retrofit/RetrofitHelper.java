@@ -2,7 +2,6 @@ package com.xpf.android.retrofit;
 
 import android.content.Context;
 
-import com.xpf.android.retrofit.cookie.HttpCookieManger;
 import com.xpf.android.retrofit.intercepter.HttpCacheInterceptor;
 import com.xpf.android.retrofit.intercepter.LoggerInterceptor;
 import com.xpf.android.retrofit.service.ApiService;
@@ -17,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by x-sir on 2018/8/1 :)
  * Function:RetrofitHelper singleton class.
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class RetrofitHelper {
 
@@ -49,18 +49,19 @@ public class RetrofitHelper {
                 //.hostnameVerifier(HttpsUtils.getHostnameVerifier())
                 //.addInterceptor(new HeaderInterceptor()) // 添加请求头
                 .addInterceptor(new LoggerInterceptor(true)) // 添加日志打印拦截器
-                .cookieJar(new HttpCookieManger(mContext))
+                //.cookieJar(new HttpCookieManger(mContext))
                 .addNetworkInterceptor(new HttpCacheInterceptor(mContext))
                 //.cache(new HttpCache(mContext).getCache())
                 //.connectionPool(new ConnectionPool(8, 15, TimeUnit.SECONDS))
-                // 这里你可以根据自己的机型设置同时连接的个数和时间，我这里8个，和每个保持时间为10s
+                // 这里你可以根据自己的机型设置同时连接的个数和时间，这里是 8 个，和每个保持时间为 15s
                 .build();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create()) // 添加 Gson 解析
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) // 添加rxJava
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                // 添加rxJava1.x，RxJava 2.x:RxJava2CallAdapterFactory.create()
                 .build();
     }
 

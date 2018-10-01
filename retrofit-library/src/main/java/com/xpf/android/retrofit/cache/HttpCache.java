@@ -10,6 +10,7 @@ import okhttp3.Cache;
 /**
  * Created by x-sir on 2018/8/4 :)
  * Function:HttpCache
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class HttpCache {
 
