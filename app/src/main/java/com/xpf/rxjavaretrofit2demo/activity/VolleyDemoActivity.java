@@ -22,6 +22,7 @@ import butterknife.OnClick;
 /**
  * Created by x-sir on 2016-12-21 :)
  * Function:VolleyDemoActivity
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class VolleyDemoActivity extends Activity {
 

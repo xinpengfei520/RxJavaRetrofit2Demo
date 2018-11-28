@@ -10,7 +10,6 @@ import com.orhanobut.logger.Logger;
  * Created by xpf on 2017/12/28 :)
  * Function:
  */
-
 public class MyApplication extends Application {
 
     private static Context mContext;

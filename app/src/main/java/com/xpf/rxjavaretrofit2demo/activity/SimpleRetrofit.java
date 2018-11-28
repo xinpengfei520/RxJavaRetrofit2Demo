@@ -23,7 +23,8 @@ import retrofit2.Retrofit;
 
 /**
  * Created by x-sir on 2016-12-21 :)
- * Function:SimpleRetrofit
+ * Function:SimpleRetrofit(没有经过封装的用法)
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class SimpleRetrofit extends AppCompatActivity {
 
@@ -54,6 +55,7 @@ public class SimpleRetrofit extends AppCompatActivity {
         Retrofit retrofit = builder.client(httpClient.build()).build();
         GithubService githubService = retrofit.create(GithubService.class);
         Call<ResponseBody> call = githubService.getUserString(account);
+
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

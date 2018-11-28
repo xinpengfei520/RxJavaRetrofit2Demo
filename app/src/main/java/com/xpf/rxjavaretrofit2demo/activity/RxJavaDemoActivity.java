@@ -25,6 +25,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by x-sir on 2016-12-21 :)
  * Function:RxJavaDemoActivity
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class RxJavaDemoActivity extends Activity {
 
@@ -37,9 +38,10 @@ public class RxJavaDemoActivity extends Activity {
     private Subscriber<String> subscriber;
     @BindView(R.id.tv)
     TextView tv;
-    private List<Integer> nums;
-    private List<Integer> numbers;
-    private ArrayList<String> datas;
+
+    private List<Integer> mNumbers;
+    private List<Integer> numberList;
+    private ArrayList<String> mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,19 +52,19 @@ public class RxJavaDemoActivity extends Activity {
     }
 
     private void initData() {
-        datas = new ArrayList<>();
+        mData = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            datas.add("item_" + i);
+            mData.add("item_" + i);
         }
 
-        nums = new ArrayList<>();
+        mNumbers = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
-            nums.add(i * (i + 10));
+            mNumbers.add(i * (i + 10));
         }
 
-        numbers = new ArrayList<>();
+        numberList = new ArrayList<>();
         for (int i = 5; i >= 0; i--) {
-            numbers.add(i);
+            numberList.add(i);
         }
 
         try {
@@ -103,7 +105,7 @@ public class RxJavaDemoActivity extends Activity {
                 });
 
         Observable
-                .from(numbers)
+                .from(numberList)
                 .filter(new Func1<Integer, Boolean>() {
                     @Override
                     public Boolean call(Integer integer) {
@@ -135,7 +137,9 @@ public class RxJavaDemoActivity extends Activity {
         BackPressureTest();
     }
 
-    // 背压测试
+    /**
+     * 背压测试
+     */
     private void BackPressureTest() {
         Observable
                 .interval(1, TimeUnit.MILLISECONDS)
@@ -158,7 +162,9 @@ public class RxJavaDemoActivity extends Activity {
                 });
     }
 
-    // 创建观察者Subscribe
+    /**
+     * 创建观察者 Subscribe
+     */
     private void InitSubscriber() {
         subscriber = new Subscriber<String>() {
             @Override
@@ -179,7 +185,9 @@ public class RxJavaDemoActivity extends Activity {
         };
     }
 
-    // 创建被观察者Observable
+    /**
+     * 创建被观察者Observable
+     */
     private void InitObserver() {
         observable = Observable.create(new Observable.OnSubscribe<String>() {
             @Override

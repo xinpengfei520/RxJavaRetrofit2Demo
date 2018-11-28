@@ -48,7 +48,11 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-// Retrofit2 + RxJava Demo
+/**
+ * Created by x-sir on 2016-12-21 :)
+ * Function:Retrofit2 + RxJava Demo
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
+ */
 public class MainActivity extends Activity {
 
     private final String TAG = MainActivity.class.getSimpleName();

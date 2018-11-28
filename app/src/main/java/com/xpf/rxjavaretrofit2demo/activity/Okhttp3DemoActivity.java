@@ -40,6 +40,7 @@ import okhttp3.Response;
 /**
  * Created by x-sir on 2016-12-21 :)
  * Function:Okhttp3异步请求的回调不在UI线程当中
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class Okhttp3DemoActivity extends Activity {
 
