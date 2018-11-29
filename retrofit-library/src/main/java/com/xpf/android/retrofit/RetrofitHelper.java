@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -42,7 +42,7 @@ public class RetrofitHelper {
                 .baseUrl(BASE_URL)
                 .client(getOkhttpClient())
                 .addConverterFactory(GsonConverterFactory.create()) // 添加 Gson 解析
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 // 添加rxJava1.x，RxJava 2.x:RxJava2CallAdapterFactory.create()
                 .build();
     }

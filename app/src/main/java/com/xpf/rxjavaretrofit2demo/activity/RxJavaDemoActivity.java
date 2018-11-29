@@ -2,25 +2,30 @@ package com.xpf.rxjavaretrofit2demo.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xpf.rxjavaretrofit2demo.R;
+import com.xpf.rxjavaretrofit2demo.utils.LogUtil;
+import com.xpf.rxjavaretrofit2demo.utils.ToastUtil;
 
-import java.io.IOException;
-import java.io.InputStream;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by x-sir on 2016-12-21 :)
@@ -30,14 +35,15 @@ import rx.schedulers.Schedulers;
 public class RxJavaDemoActivity extends Activity {
 
     private static final String TAG = "RxJavaDemoActivity";
+    @BindView(R.id.tv)
+    TextView tv;
+
     // 被观察者,事件源
     private Observable<String> observable;
     // 只发出一个事件就结束的Observable
     private Observable<String> oneActionObservable;
     // 观察者
     private Subscriber<String> subscriber;
-    @BindView(R.id.tv)
-    TextView tv;
 
     private List<Integer> mNumbers;
     private List<Integer> numberList;
@@ -67,20 +73,10 @@ public class RxJavaDemoActivity extends Activity {
             numberList.add(i);
         }
 
-        try {
-            InputStream is = getAssets().open("code.txt");
-            byte[] buffer = new byte[is.available()];
-            is.read(buffer);
-            is.close();
-            tv.setText(new String(buffer));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         InitObserver();
         InitSubscriber();
 
-        /**
+        /*
          * 假设将被观察者事件源发生的事件 'hello world' 在观察者Subscribe中实现时,需要发生一些变化。
          * 操作符就是为了解决对Observable对象的变换的问题
          * 操作符用于在Observable和最终的Subscriber之间修改Observable发出的事件
@@ -88,50 +84,56 @@ public class RxJavaDemoActivity extends Activity {
          */
         Observable
                 .range(12, 10)
-                .subscribe(new Action1<Integer>() {
-                    @Override
-                    public void call(Integer integer) {
-                        Toast.makeText(RxJavaDemoActivity.this, "integer===" + integer, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .subscribe(integer -> ToastUtil.showShort("integer===" + integer));
 
         Observable
                 .just(System.currentTimeMillis())
-                .subscribe(new Action1<Long>() {
+                .subscribe(new Consumer<Long>() {
                     @Override
-                    public void call(Long aLong) {
-                        Log.e(RxJavaDemoActivity.class.getSimpleName(), "aLong===" + aLong + aLong);
+                    public void accept(Long aLong) throws Exception {
+                        LogUtil.i(TAG, "aLong===" + aLong);
                     }
                 });
 
         Observable
-                .from(numberList)
-                .filter(new Func1<Integer, Boolean>() {
+                .fromArray(numberList)
+                .filter(new Predicate<List<Integer>>() {
                     @Override
-                    public Boolean call(Integer integer) {
-                        return integer != null;
+                    public boolean test(List<Integer> integers) throws Exception {
+                        return integers != null;
                     }
                 })
-                .map(new Func1<Integer, Integer>() {
+                .map(new Function<List<Integer>, List<Integer>>() {
                     @Override
-                    public Integer call(Integer integer) {
-                        return 10 % integer;
+                    public List<Integer> apply(List<Integer> integers) throws Exception {
+                        List<Integer> list = new ArrayList<>();
+                        for (Integer integer : integers) {
+                            integer = 10 % integer;
+                            list.add(integer);
+                        }
+                        return list;
                     }
                 })
-                .subscribe(new Subscriber<Integer>() {
+                .subscribe(new Observer<List<Integer>>() {
                     @Override
-                    public void onCompleted() {
-                        Log.e(RxJavaDemoActivity.class.getSimpleName(), "onCompleted");
+                    public void onSubscribe(Disposable d) {
+                        LogUtil.iLogging(TAG, "onSubscribe()");
+                    }
+
+                    @Override
+                    public void onNext(List<Integer> integers) {
+                        LogUtil.iLogging(TAG, "onNext()");
+                        LogUtil.collection(TAG, integers);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(RxJavaDemoActivity.class.getSimpleName(), "onError---->" + e.getMessage());
+                        LogUtil.eLogging(TAG, "onError()");
                     }
 
                     @Override
-                    public void onNext(Integer integer) {
-                        Log.e(RxJavaDemoActivity.class.getSimpleName(), "onNext---- >Remainder is " + integer);
+                    public void onComplete() {
+                        LogUtil.iLogging(TAG, "onComplete()");
                     }
                 });
         BackPressureTest();
@@ -144,20 +146,25 @@ public class RxJavaDemoActivity extends Activity {
         Observable
                 .interval(1, TimeUnit.MILLISECONDS)
                 .observeOn(Schedulers.newThread())
-                .subscribe(new Subscriber<Long>() {
+                .subscribe(new Observer<Long>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "onError===" + e.toString());
+                    public void onSubscribe(Disposable d) {
+                        LogUtil.iLogging(TAG, "onSubscribe()");
                     }
 
                     @Override
                     public void onNext(Long aLong) {
-                        Log.e(TAG, "onNext===" + aLong);
+                        LogUtil.iLogging(TAG, "onNext()");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.eLogging(TAG, "onError()");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtil.iLogging(TAG, "onComplete()");
                     }
                 });
     }
@@ -168,19 +175,24 @@ public class RxJavaDemoActivity extends Activity {
     private void InitSubscriber() {
         subscriber = new Subscriber<String>() {
             @Override
-            public void onCompleted() {
+            public void onSubscribe(Subscription s) {
+                LogUtil.iLogging(TAG, "onSubscribe()");
+            }
 
+            @Override
+            public void onComplete() {
+                LogUtil.iLogging(TAG, "onComplete()");
             }
 
             @Override
             public void onError(Throwable e) {
-
+                LogUtil.eLogging(TAG, "onError()");
             }
 
             @Override
             public void onNext(String s) {
-                Log.e(RxJavaDemoActivity.class.getSimpleName(), "onNext--->" + s);
-                Toast.makeText(RxJavaDemoActivity.this, s, Toast.LENGTH_SHORT).show();
+                LogUtil.iLogging(TAG, "onNext()");
+                ToastUtil.showShort(s);
             }
         };
     }
@@ -189,11 +201,11 @@ public class RxJavaDemoActivity extends Activity {
      * 创建被观察者Observable
      */
     private void InitObserver() {
-        observable = Observable.create(new Observable.OnSubscribe<String>() {
+        observable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext("hello world!");
-                subscriber.onCompleted();
+            public void subscribe(ObservableEmitter<String> e) throws Exception {
+                e.onNext("hello world!");
+                e.onComplete();
             }
         });
         // 只发出一个事件就结束的Observable

@@ -11,7 +11,6 @@ import com.jokerwan.mvpretrofitrxdemo.viewinterface.IMoiveListView;
  * WeChat: wjc398556712
  * Function:
  */
-
 public class MoiveListPresenter extends AWanBasePresenter<IMoiveListView> {
 
     public void getMoiveList(){

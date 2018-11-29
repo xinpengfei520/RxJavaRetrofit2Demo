@@ -1,5 +1,6 @@
 package com.xpf.rxjavaretrofit2demo;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,37 +17,37 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.xpf.rxjavaretrofit2demo.api.GithubService;
-import com.xpf.rxjavaretrofit2demo.api.RequestUrl;
 import com.xpf.rxjavaretrofit2demo.activity.HttpUrlConnectionActivity;
 import com.xpf.rxjavaretrofit2demo.activity.Okhttp3DemoActivity;
 import com.xpf.rxjavaretrofit2demo.activity.RxJavaDemoActivity;
 import com.xpf.rxjavaretrofit2demo.activity.SimpleRetrofit;
 import com.xpf.rxjavaretrofit2demo.activity.VolleyDemoActivity;
+import com.xpf.rxjavaretrofit2demo.api.GithubService;
+import com.xpf.rxjavaretrofit2demo.api.RequestUrl;
 import com.xpf.rxjavaretrofit2demo.bean.GithubUserBean;
 import com.xpf.rxjavaretrofit2demo.bean.UserFollowerBean;
 import com.xpf.rxjavaretrofit2demo.utils.GenServiceUtil;
+import com.xpf.rxjavaretrofit2demo.utils.LogUtil;
 import com.xpf.rxjavaretrofit2demo.utils.ToastUtil;
 import com.xpf.rxjavaretrofit2demo.view.XDialog;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by x-sir on 2016-12-21 :)
@@ -55,13 +56,13 @@ import rx.schedulers.Schedulers;
  */
 public class MainActivity extends Activity {
 
-    private final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = "MainActivity";
     private Context mContext;
     private String name;
     private ProgressDialog loading;
 
-    @BindView(R.id.username)
-    EditText username;
+    @BindView(R.id.etUserName)
+    EditText etUserName;
     @BindView(R.id.get0)
     Button get0;
     @BindView(R.id.get1)
@@ -94,7 +95,7 @@ public class MainActivity extends Activity {
 
     @OnClick({R.id.get0, R.id.get1, R.id.get2, R.id.get3, R.id.get4, R.id.get5, R.id.get6, R.id.get7, R.id.get8})
     public void onClick(View view) {
-        name = username.getText().toString().trim();
+        name = etUserName.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
             ToastUtil.showShort("Input is empty!");
             return;
@@ -142,73 +143,70 @@ public class MainActivity extends Activity {
     private void RxRetrofitList() {
         GithubService service = GenServiceUtil.createService(GithubService.class);
         Observable<List<UserFollowerBean>> observable = service.followers(name);
+
         observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<List<UserFollowerBean>, List<UserFollowerBean>>() {
-                    @Override
-                    public List<UserFollowerBean> call(List<UserFollowerBean> userFollowerBeen) {
-                        // 遍历转大写
-                        for (UserFollowerBean bean : userFollowerBeen) {
-                            String name;
-                            name = bean.getLogin().substring(0, 1).toUpperCase() +
-                                    bean.getLogin().substring(1, bean.getLogin().length());
-                            bean.setLogin(name);
-                        }
-                        return userFollowerBeen;
+                .map(userFollowerBeans -> {
+                    // 遍历转大写
+                    for (UserFollowerBean bean : userFollowerBeans) {
+                        String name = bean.getLogin().substring(0, 1).toUpperCase() +
+                                bean.getLogin().substring(1, bean.getLogin().length());
+                        bean.setLogin(name);
                     }
+                    return userFollowerBeans;
                 })
-                .map(new Func1<List<UserFollowerBean>, List<UserFollowerBean>>() {
+                .map(userFollowerBeans -> {
+                    // 排序
+                    Collections.sort(userFollowerBeans, (o1, o2) -> o1.getLogin().compareTo(o2.getLogin()));
+                    return userFollowerBeans;
+                })
+                .subscribe(new Observer<List<UserFollowerBean>>() {
                     @Override
-                    public List<UserFollowerBean> call(List<UserFollowerBean> userFollowerBeen) {
-                        // 排序
-                        Collections.sort(userFollowerBeen, new Comparator<UserFollowerBean>() {
-                            @Override
-                            public int compare(UserFollowerBean o1, UserFollowerBean o2) {
-                                return o1.getLogin().compareTo(o2.getLogin());
-                            }
-                        });
-                        return userFollowerBeen;
+                    public void onSubscribe(Disposable d) {
+                        LogUtil.iLogging(TAG, "onSubscribe()");
                     }
-                })
-                .subscribe(new Subscriber<List<UserFollowerBean>>() {
+
                     @Override
-                    public void onCompleted() {
-                        loading.dismiss();
+                    public void onNext(List<UserFollowerBean> userFollowerBeans) {
+                        LogUtil.iLogging(TAG, "onNext()");
+                        setFollowersView(userFollowerBeans);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        e.printStackTrace();
+                        LogUtil.eLogging(TAG, "onError()");
                         loading.dismiss();
                     }
 
                     @Override
-                    public void onNext(List<UserFollowerBean> userFollowerBeen) {
-                        setFollowersView(userFollowerBeen);
+                    public void onComplete() {
+                        LogUtil.iLogging(TAG, "onComplete()");
+                        loading.dismiss();
                     }
                 });
     }
 
+    @SuppressLint("SetTextI18n")
     private void setFollowersView(List<UserFollowerBean> followers) {
         if (followers != null && followers.size() > 0) {
             for (UserFollowerBean user : followers) {
                 View view = LayoutInflater.from(mContext).inflate(R.layout.item_user, null);
-                TextView title = (TextView) view.findViewById(R.id.title);
-                TextView id = (TextView) view.findViewById(R.id.userId);
-                TextView creteaTime = (TextView) view.findViewById(R.id.createTime);
-                TextView updateTime = (TextView) view.findViewById(R.id.updateTime);
-                ImageView avatar = (ImageView) view.findViewById(R.id.avatar);
+                TextView title = view.findViewById(R.id.title);
+                TextView id = view.findViewById(R.id.userId);
+                TextView createTime = view.findViewById(R.id.createTime);
+                TextView updateTime = view.findViewById(R.id.updateTime);
+                ImageView avatar = view.findViewById(R.id.avatar);
 
                 title.setText("Name: " + user.getLogin());
                 id.setText("Id: " + String.valueOf(user.getId()));
-                creteaTime.setText("");
+                createTime.setText("");
                 updateTime.setText("");
                 Glide.with(mContext).load(user.getAvatar_url()).into(avatar);
                 viewShell.addView(view);
             }
         } else {
-            Toast.makeText(mContext, "result is null", Toast.LENGTH_SHORT).show();
+            ToastUtil.showShort("result is null");
         }
     }
 
@@ -219,48 +217,51 @@ public class MainActivity extends Activity {
         GithubService service = GenServiceUtil.createService(GithubService.class);
         final Call<GithubUserBean> call = service.getUser(name);
         // create a observable object
-        Observable<GithubUserBean> observable = Observable.create(new Observable.OnSubscribe<GithubUserBean>() {
-            @Override
-            public void call(Subscriber<? super GithubUserBean> subscriber) {
-                Response<GithubUserBean> bean = null;
-                try {
-                    bean = call.execute();
-                    subscriber.onNext(bean.body());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    subscriber.onError(e);
-                }
-                subscriber.onCompleted();
-            }
-        });
+        Observable<GithubUserBean> observable =
+                Observable.create(emitter -> {
+                    Response<GithubUserBean> bean = null;
+                    try {
+                        bean = call.execute();
+                        emitter.onNext(bean.body());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        emitter.onError(e);
+                    }
+                    emitter.onComplete();
+                });
 
         // subscribe a event
         observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<GithubUserBean, GithubUserBean>() {
-                    @Override
-                    public GithubUserBean call(GithubUserBean bean) {
-                        if (TextUtils.isEmpty(bean.getBio())) {
-                            bean.setBio("empty message!");
-                        }
-                        return bean;
+                .map(githubUserBean -> {
+                    if (TextUtils.isEmpty(githubUserBean.getBio())) {
+                        githubUserBean.setBio("empty message!");
                     }
+                    return githubUserBean;
                 })
-                .subscribe(new Subscriber<GithubUserBean>() {
+                .subscribe(new Observer<GithubUserBean>() {
                     @Override
-                    public void onCompleted() {
-                        loading.dismiss();
+                    public void onSubscribe(Disposable d) {
+                        LogUtil.iLogging(TAG, "onSubscribe()");
+                    }
+
+                    @Override
+                    public void onNext(GithubUserBean githubUserBean) {
+                        LogUtil.iLogging(TAG, "onNext()");
+                        setUserView(githubUserBean);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        LogUtil.eLogging(TAG, "onError()");
                         loading.dismiss();
                     }
 
                     @Override
-                    public void onNext(GithubUserBean userBean) {
-                        setUserView(userBean);
+                    public void onComplete() {
+                        LogUtil.iLogging(TAG, "onComplete()");
+                        loading.dismiss();
                     }
                 });
     }
@@ -298,6 +299,7 @@ public class MainActivity extends Activity {
         Retrofit retrofit = builder.client(httpClient.build()).build();
         GithubService service = retrofit.create(GithubService.class);
         Call<GithubUserBean> call = service.getUser(name);
+
         call.enqueue(new Callback<GithubUserBean>() {
             @Override
             public void onResponse(Call<GithubUserBean> call, Response<GithubUserBean> response) {
@@ -313,16 +315,17 @@ public class MainActivity extends Activity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void setUserView(GithubUserBean userBean) {
         if (userBean != null) {
             viewShell.removeAllViews();
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_user, null);
-            TextView title = (TextView) view.findViewById(R.id.title);
-            TextView id = (TextView) view.findViewById(R.id.userId);
-            TextView createTime = (TextView) view.findViewById(R.id.createTime);
-            TextView updateTime = (TextView) view.findViewById(R.id.updateTime);
-            TextView bio = (TextView) view.findViewById(R.id.bio);
-            ImageView avatar = (ImageView) view.findViewById(R.id.avatar);
+            TextView title = view.findViewById(R.id.title);
+            TextView id = view.findViewById(R.id.userId);
+            TextView createTime = view.findViewById(R.id.createTime);
+            TextView updateTime = view.findViewById(R.id.updateTime);
+            TextView bio = view.findViewById(R.id.bio);
+            ImageView avatar = view.findViewById(R.id.avatar);
 
             title.setText("Name: " + userBean.getLogin());
             bio.setText("Bio: " + userBean.getBio());

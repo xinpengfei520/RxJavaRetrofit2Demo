@@ -4,7 +4,7 @@ import com.xpf.rxjavaretrofit2demo.api.RequestUrl;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -18,7 +18,7 @@ public class GenServiceUtil {
 
     private static Retrofit.Builder builder = new Retrofit.Builder()
             .baseUrl(RequestUrl.BASE_URL)
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create());
 
     private static Retrofit retrofit = builder.client(httpClient.build()).build();

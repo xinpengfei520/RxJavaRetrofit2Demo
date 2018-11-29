@@ -14,6 +14,7 @@ public class XDialog {
         ProgressDialog loading = new ProgressDialog(context);
         loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         loading.setIndeterminate(true);
+        loading.setCancelable(false);
         loading.setInverseBackgroundForced(true);
         loading.setMessage("loading...");
         return loading;
