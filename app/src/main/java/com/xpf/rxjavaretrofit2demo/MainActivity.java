@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.xpf.rxjavaretrofit2demo.activity.HttpUrlConnectionActivity;
 import com.xpf.rxjavaretrofit2demo.activity.Okhttp3DemoActivity;
 import com.xpf.rxjavaretrofit2demo.activity.RxJavaDemoActivity;
+import com.xpf.rxjavaretrofit2demo.activity.RxJavaHelloWorldActivity;
 import com.xpf.rxjavaretrofit2demo.activity.SimpleRetrofit;
 import com.xpf.rxjavaretrofit2demo.activity.VolleyDemoActivity;
 import com.xpf.rxjavaretrofit2demo.api.GithubService;
@@ -65,6 +66,8 @@ public class MainActivity extends Activity {
     EditText etUserName;
     @BindView(R.id.get0)
     Button get0;
+    @BindView(R.id.tvHelloWorld)
+    Button tvHelloWorld;
     @BindView(R.id.get1)
     Button get1;
     @BindView(R.id.get2)
@@ -93,7 +96,8 @@ public class MainActivity extends Activity {
         loading = XDialog.create(this);
     }
 
-    @OnClick({R.id.get0, R.id.get1, R.id.get2, R.id.get3, R.id.get4, R.id.get5, R.id.get6, R.id.get7, R.id.get8})
+    @OnClick({R.id.get0, R.id.get1, R.id.get2, R.id.get3, R.id.get4, R.id.get5, R.id.get6, R.id.get7,
+            R.id.get8, R.id.tvHelloWorld})
     public void onClick(View view) {
         name = etUserName.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
@@ -123,21 +127,28 @@ public class MainActivity extends Activity {
                 break;
             case R.id.get5:
                 loading.dismiss();
-                startActivity(new Intent(MainActivity.this, HttpUrlConnectionActivity.class));
+                jumpToActivity(HttpUrlConnectionActivity.class);
                 break;
             case R.id.get6:
                 loading.dismiss();
-                startActivity(new Intent(MainActivity.this, VolleyDemoActivity.class));
+                jumpToActivity(VolleyDemoActivity.class);
                 break;
             case R.id.get7:
                 loading.dismiss();
-                startActivity(new Intent(MainActivity.this, Okhttp3DemoActivity.class));
+                jumpToActivity(Okhttp3DemoActivity.class);
                 break;
             case R.id.get8:
                 loading.dismiss();
-                startActivity(new Intent(MainActivity.this, RxJavaDemoActivity.class));
+                jumpToActivity(RxJavaDemoActivity.class);
+                break;
+            case R.id.tvHelloWorld:
+                jumpToActivity(RxJavaHelloWorldActivity.class);
                 break;
         }
+    }
+
+    private void jumpToActivity(Class<?> clazz) {
+        startActivity(new Intent(MainActivity.this, clazz));
     }
 
     private void RxRetrofitList() {

@@ -45,6 +45,16 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/tvHelloWorld"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
+                android:text="RxJavaHelloWorld"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+
+            <Button
                 android:id="@+id/get0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/colorPrimary"
-                android:text="Rx-Retrofit"
+                android:text="RxRetrofit"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
 
@@ -90,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/colorPrimary"
-                android:text="Rx-Retrofit-h"
+                android:text="RxRetrofitList"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
 

@@ -24,6 +24,7 @@
         <activity android:name=".activity.Okhttp3DemoActivity" />
         <activity android:name=".activity.RxJavaDemoActivity" />
         <activity android:name=".activity.SimpleRetrofit" />
+        <activity android:name=".activity.RxJavaHelloWorldActivity"></activity>
     </application>
 
 </manifest>
