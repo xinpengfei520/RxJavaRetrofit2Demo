@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String TAG = "RxJava";
     Integer i = 10;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,33 +26,33 @@ public class MainActivity extends AppCompatActivity {
         // 1. 每1s发送1个数据 = 从0开始，递增1，即0、1、2、3
         Observable.interval(1, TimeUnit.SECONDS)
                 // 2. 通过takeUntil的Predicate传入判断条件
-                .takeUntil(new Predicate<Long>(){
+                .takeUntil(new Predicate<Long>() {
                     @Override
-                    public boolean test( Long integer) throws Exception {
-                        return (integer>3);
+                    public boolean test(Long integer) throws Exception {
+                        return (integer > 3);
                         // 返回true时，就停止发送事件
                         // 当发送的数据满足>3时，就停止发送Observable的数据
                     }
-                }).subscribe(new Observer<Long>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+                })
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            }
+                    }
 
-            @Override
-            public void onNext(Long value) {
-                Log.d(TAG,"发送了事件 "+ value);
-            }
+                    @Override
+                    public void onNext(Long value) {
+                        Log.d(TAG, "发送了事件 " + value);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                    }
 
-            @Override
-            public void onComplete() {
-            }
-        });
-
+                    @Override
+                    public void onComplete() {
+                    }
+                });
 
 
 //        // 采用RxJava基于事件流的链式操作
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 //                Log.d(TAG, s);
 //            }
 //        });
-
 
 
 //        Observable.create(new ObservableOnSubscribe<Integer>() {
@@ -137,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
 //                        Log.d(TAG, "对Complete事件作出响应");
 //                    }
 //                });
-
 
 
 //            Observable.combineLatest(
@@ -222,9 +221,6 @@ public class MainActivity extends AppCompatActivity {
 //                });
 
 
-
-
-
 //        // 使用2：获取位置索引大于发送事件序列时，设置默认参数
 //        Observable.just(1, 2, 3, 4, 5)
 //                .elementAt(6,10)
@@ -245,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
 //                        Log.d(TAG,"获取到的事件元素是： "+ integer);
 //                    }
 //                });
-
 
 
 //        // 参数说明：
@@ -277,7 +272,6 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //
 //                });
-
 
 
 //        // 参数说明：
@@ -353,10 +347,6 @@ public class MainActivity extends AppCompatActivity {
 //                });
 
 
-
-
-
-
 //
 //        // 1. 每1s发送1个数据 = 从0开始，递增1，即0、1、2、3
 //        Observable.interval(1, TimeUnit.SECONDS)
@@ -387,10 +377,6 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 
-
-
-
-
 //        Observable.just(1,2,3,4,5,6)
 //                .map(new Function<Integer,String>() {
 //                    @Override
@@ -402,10 +388,7 @@ public class MainActivity extends AppCompatActivity {
 //                });
 
 
-
     }
-
-
 
 
 //        Observable.just(1,2,3,4,5,6)

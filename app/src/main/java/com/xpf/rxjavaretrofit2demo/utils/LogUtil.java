@@ -2,8 +2,8 @@ package com.xpf.rxjavaretrofit2demo.utils;
 
 import android.util.Log;
 
-import com.orhanobut.logger.BuildConfig;
 import com.orhanobut.logger.Logger;
+import com.xpf.rxjavaretrofit2demo.BuildConfig;
 
 import java.util.Collection;
 
