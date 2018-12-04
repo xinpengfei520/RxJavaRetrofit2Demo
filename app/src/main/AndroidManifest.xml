@@ -24,7 +24,10 @@
         <activity android:name=".activity.Okhttp3DemoActivity" />
         <activity android:name=".activity.RxJavaDemoActivity" />
         <activity android:name=".activity.SimpleRetrofit" />
-        <activity android:name=".activity.RxJavaHelloWorldActivity"></activity>
+        <activity android:name=".activity.RxJavaHelloWorldActivity" />
+        <activity android:name=".activity.ObservableActivity" />
+        <activity android:name=".activity.FlowableActivity" />
+        <activity android:name=".activity.RxJavaGitHubActivity"></activity>
     </application>
 
 </manifest>

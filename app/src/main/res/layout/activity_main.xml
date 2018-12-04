@@ -4,37 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/background"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="UserName:"
-            android:textColor="@android:color/white" />
-
-        <EditText
-            android:id="@+id/etUserName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:background="@null"
-            android:gravity="left"
-            android:text="xinpengfei520"
-            android:hint="github account"
-            android:singleLine="true"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
-
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -55,52 +24,42 @@
                 android:textColor="@android:color/white" />
 
             <Button
+                android:id="@+id/btnObservable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
+                android:text="Observable"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnFlowable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
+                android:text="Flowable"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnRxJavaGitHub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
+                android:text="RxJavaGitHub"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+
+            <Button
                 android:id="@+id/get0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/colorPrimary"
                 android:text="Simple"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/get1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/colorPrimary"
-                android:text="LazyRetrofit"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/get2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/colorPrimary"
-                android:text="EasyRetrofit"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/get3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/colorPrimary"
-                android:text="RxRetrofit"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/get4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/colorPrimary"
-                android:text="RxRetrofitList"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
 
@@ -143,13 +102,6 @@
                 android:text="RxJavaDemo"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
-
-            <LinearLayout
-                android:id="@+id/viewShell"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-
         </LinearLayout>
 
     </ScrollView>
