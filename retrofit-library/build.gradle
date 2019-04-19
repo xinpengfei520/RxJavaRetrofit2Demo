@@ -1,5 +1,12 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'com.github.dcendents.android-maven'
+
+// 替换为自己的 GitHub 账号
+group = 'com.github.xinpengfei520'
+
+version = "0.0.1"
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -28,6 +35,11 @@ android {
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
     }
 }
 
