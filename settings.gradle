@@ -1,1 +1,1 @@
-include ':app', ':RxJava-Learn', ':retrofit-library', 'rxapp'
+include ':app', ':RxJava-Learn', ':retrofit-library'
