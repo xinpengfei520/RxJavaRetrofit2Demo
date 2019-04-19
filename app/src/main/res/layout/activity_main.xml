@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/colorPrimary"
-                android:text="Flowable"
+                android:text="MovieFlowableActivity"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
 

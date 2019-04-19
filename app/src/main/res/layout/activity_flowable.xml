@@ -4,6 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FlowableActivity">
+    tools:context=".ui.movie.view.MovieFlowableActivity">
+
+    <TextView
+        android:id="@+id/tvMovieName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:text="点击获取最新电影"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivMovie"
+        android:layout_width="300dp"
+        android:layout_height="160dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_place_holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvMovieName" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

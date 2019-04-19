@@ -1,4 +1,4 @@
-package com.xpf.android.retrofit.utils;
+package com.xpf.android.retrofit.https;
 
 import java.io.IOException;
 import java.io.InputStream;

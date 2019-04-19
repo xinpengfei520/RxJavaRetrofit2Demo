@@ -7,11 +7,11 @@ package com.jokerwan.mvpretrofitrxdemo.api;
  */
 public class ApiFactory {
 
-    protected static final Object monitor = new Object();
+    private static final Object LOCK = new Object();
     static WApi wApi = null;
 
     public static WApi getwApi() {
-        synchronized (monitor) {
+        synchronized (LOCK) {
             if (wApi == null) {
                 wApi = new ApiRetrofit().getwApi();
             }

@@ -270,6 +270,7 @@ public class RxJavaGitHubActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @NonNull
     private View getUserView(String name, String bio, int userId, String createTime, String updateTime, String url) {
+        LogUtil.i(TAG, "url===" + url);
         View view = LayoutInflater.from(this).inflate(R.layout.item_user, null);
         TextView title = view.findViewById(R.id.title);
         TextView tvBio = view.findViewById(R.id.bio);

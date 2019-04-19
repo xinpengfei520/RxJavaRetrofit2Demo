@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.xpf.rxjavaretrofit2demo.activity.FlowableActivity;
+import com.xpf.rxjavaretrofit2demo.ui.movie.view.MovieFlowableActivity;
 import com.xpf.rxjavaretrofit2demo.activity.HttpUrlConnectionActivity;
 import com.xpf.rxjavaretrofit2demo.activity.ObservableActivity;
 import com.xpf.rxjavaretrofit2demo.activity.Okhttp3DemoActivity;
@@ -83,10 +83,12 @@ public class MainActivity extends Activity {
                 jumpToActivity(ObservableActivity.class);
                 break;
             case R.id.btnFlowable:
-                jumpToActivity(FlowableActivity.class);
+                jumpToActivity(MovieFlowableActivity.class);
                 break;
             case R.id.btnRxJavaGitHub:
                 jumpToActivity(RxJavaGitHubActivity.class);
+                break;
+            default:
                 break;
         }
     }

@@ -2,8 +2,6 @@ package com.xpf.android.retrofit.api;
 
 import com.google.gson.Gson;
 
-import java.util.HashMap;
-
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
@@ -14,18 +12,13 @@ import okhttp3.RequestBody;
  */
 public class Converter {
 
-    public static RequestBody mapToBody(HashMap<String, String> map) {
-        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
-                new Gson().toJson(map));
-    }
-
     /**
      * post request object serializable to json string.
      *
-     * @param object
-     * @return
+     * @param object object
+     * @return RequestBody
      */
-    public static RequestBody toBody(Object object) {
+    public static RequestBody getRequestBody(Object object) {
         return RequestBody.create(MediaType.parse("application/json; charset=utf-8"),
                 new Gson().toJson(object));
     }

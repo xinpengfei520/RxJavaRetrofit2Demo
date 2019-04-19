@@ -26,7 +26,7 @@
         <activity android:name=".activity.SimpleRetrofit" />
         <activity android:name=".activity.RxJavaHelloWorldActivity" />
         <activity android:name=".activity.ObservableActivity" />
-        <activity android:name=".activity.FlowableActivity" />
+        <activity android:name=".ui.movie.view.MovieFlowableActivity" />
         <activity android:name=".activity.RxJavaGitHubActivity"></activity>
     </application>
 
