@@ -2,10 +2,10 @@ package com.xpf.rxjavaretrofit2demo.ui;
 
 import com.xpf.android.retrofit.RetrofitHelper;
 import com.xpf.android.retrofit.loader.ObjectLoader;
+import com.xpf.android.retrofit.loader.PayLoad;
 import com.xpf.rxjavaretrofit2demo.bean.MovieRespBean;
 
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 import retrofit2.http.POST;
 
 /**
@@ -21,12 +21,7 @@ public class MovieLoader extends ObjectLoader {
     }
 
     public Observable<MovieRespBean> getMovie() {
-        return observe(mService.getMovieList()).map(new Function<MovieRespBean, MovieRespBean>() {
-            @Override
-            public MovieRespBean apply(MovieRespBean movieRespBean) throws Exception {
-                return movieRespBean;
-            }
-        });
+        return observe(mService.getMovieList()).map(new PayLoad<MovieRespBean>());
     }
 
     public interface MovieServiceApi {

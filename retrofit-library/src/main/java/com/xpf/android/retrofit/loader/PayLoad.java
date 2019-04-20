@@ -16,7 +16,7 @@ public class PayLoad<T> implements Function<BaseResponse<T>, T> {
         // 当获取数据失败时，封装一个 FaultException 抛出去
         if (!tBaseResponse.isSuccess()) {
             try {
-                throw new FaultException(tBaseResponse.status,tBaseResponse.message);
+                throw new FaultException(tBaseResponse.status, tBaseResponse.message);
             } catch (FaultException e) {
                 e.printStackTrace();
             }

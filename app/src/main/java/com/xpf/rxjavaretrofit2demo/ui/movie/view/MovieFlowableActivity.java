@@ -55,7 +55,20 @@ public class MovieFlowableActivity extends MvpBaseActivity<MovieContract.IView, 
 //            if (movieRespBean != null) {
 //                setData(movieRespBean);
 //            }
-//        }, throwable -> ToastUtil.showShort(throwable.getMessage()));
+//        }, throwable -> {
+//            if (throwable instanceof FaultException) {
+//                FaultException faultException = (FaultException) throwable;
+//                if (faultException.status == 404) {
+//
+//                } else if (faultException.status == 500) {
+//
+//                } else if (faultException.status == 501) {
+//
+//                }
+//            }
+//
+//            ToastUtil.showShort(throwable.getMessage());
+//        });
     }
 
     @Override

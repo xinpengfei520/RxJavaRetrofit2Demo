@@ -1,12 +1,14 @@
 package com.xpf.rxjavaretrofit2demo.bean;
 
+import com.xpf.android.retrofit.response.BaseResponse;
+
 import java.util.List;
 
 /**
  * Created by x-sir on 2019/4/19 :)
  * Function:MovieRespBean
  */
-public class MovieRespBean {
+public class MovieRespBean extends BaseResponse {
 
     private List<TrailersBean> trailers;
 
