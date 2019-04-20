@@ -162,7 +162,7 @@ public class RxJavaGitHubActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(githubUserBean -> {
                     if (TextUtils.isEmpty(githubUserBean.getBio())) {
-                        githubUserBean.setBio("empty message!");
+                        githubUserBean.setBio("Empty message!");
                     }
                     return githubUserBean;
                 })

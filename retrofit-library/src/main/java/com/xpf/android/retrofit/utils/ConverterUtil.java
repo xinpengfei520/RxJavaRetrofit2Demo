@@ -1,4 +1,4 @@
-package com.xpf.android.retrofit.api;
+package com.xpf.android.retrofit.utils;
 
 import com.google.gson.Gson;
 
@@ -10,7 +10,7 @@ import okhttp3.RequestBody;
  * Function:
  * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
-public class Converter {
+public class ConverterUtil {
 
     /**
      * post request object serializable to json string.

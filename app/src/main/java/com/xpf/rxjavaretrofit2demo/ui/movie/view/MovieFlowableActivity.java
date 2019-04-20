@@ -48,6 +48,14 @@ public class MovieFlowableActivity extends MvpBaseActivity<MovieContract.IView, 
 
     private void getData() {
         getPresenter().getMovie();
+
+        // 使用 Loader 方式实现
+//        MovieLoader movieLoader = new MovieLoader();
+//        Disposable disposable = movieLoader.getMovie().subscribe(movieRespBean -> {
+//            if (movieRespBean != null) {
+//                setData(movieRespBean);
+//            }
+//        }, throwable -> ToastUtil.showShort(throwable.getMessage()));
     }
 
     @Override
@@ -57,6 +65,10 @@ public class MovieFlowableActivity extends MvpBaseActivity<MovieContract.IView, 
 
     @Override
     public void onMovieResult(MovieRespBean movieRespBean) {
+        setData(movieRespBean);
+    }
+
+    private void setData(MovieRespBean movieRespBean) {
         MovieRespBean.TrailersBean trailersBean = movieRespBean.getTrailers().get(1);
         tvMovieName.setText(trailersBean.getMovieName());
         Glide.with(this).load(trailersBean.getCoverImg()).into(ivMovie);
