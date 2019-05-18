@@ -7,9 +7,11 @@ Retrofit2 + RxJava Demo
 ![示意图](http://upload-images.jianshu.io/upload_images/944365-4c1c1eb44ffe01e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 1.1 入门教程
+
 关于RxJava的入门教程，看这篇就够了
 
 [Android：这是一篇 清晰 & 易懂的Rxjava 入门教程](http://www.jianshu.com/p/a406b94f3188)
+[封装Retrofit2+RxJava2网络请求框架](https://www.jianshu.com/p/2e8b400909b7)
 
 
 ### 1.2 操作符
