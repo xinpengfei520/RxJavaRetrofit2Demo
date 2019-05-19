@@ -12,6 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.operator.RxJavaOperatorActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,7 @@
         <activity android:name=".activity.RxJavaHelloWorldActivity" />
         <activity android:name=".activity.ObservableActivity" />
         <activity android:name=".ui.movie.view.MovieFlowableActivity" />
-        <activity android:name=".activity.RxJavaGitHubActivity"></activity>
+        <activity android:name=".activity.RxJavaGitHubActivity" />
     </application>
 
 </manifest>
