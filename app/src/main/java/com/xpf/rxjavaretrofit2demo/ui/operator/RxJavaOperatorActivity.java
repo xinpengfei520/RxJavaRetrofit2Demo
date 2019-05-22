@@ -2,7 +2,6 @@ package com.xpf.rxjavaretrofit2demo.ui.operator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.xpf.rxjavaretrofit2demo.R;
 import com.xpf.rxjavaretrofit2demo.utils.LogUtil;
@@ -32,17 +31,43 @@ public class RxJavaOperatorActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // 1.实例化一个 Button
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        findViewById(R.id.button).setOnClickListener(v -> {
 
-            }
         });
 
 
         //createObservable();
         //iterable();
-        fromFuture();
+        //fromFuture();
+        //repeat();
+        //repeatWhen();
+        repeatUntil();
+    }
+
+    private void repeatUntil() {
+        final long currentTimeMillis = System.currentTimeMillis();
+        Observable.interval(1000, TimeUnit.MILLISECONDS)
+                .take(3)
+                .repeatUntil(() -> System.currentTimeMillis() - currentTimeMillis > 5000)
+                .subscribe(aLong -> LogUtil.i(TAG, "aLong===" + aLong));
+    }
+
+    private void repeatWhen() {
+        Observable.range(0, 4)
+                .repeatWhen(objectObservable -> Observable.timer(2, TimeUnit.SECONDS))
+                .subscribe(integer -> LogUtil.i(TAG, "integer===" + integer));
+
+//        try {
+//            Thread.sleep(12000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    private void repeat() {
+        Observable.just("Hello World!")
+                .repeat(3)
+                .subscribe(s -> LogUtil.i(TAG, s));
     }
 
     private void fromFuture() {
