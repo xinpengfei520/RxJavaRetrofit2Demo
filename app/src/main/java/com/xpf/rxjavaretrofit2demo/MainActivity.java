@@ -15,6 +15,7 @@ import com.xpf.rxjavaretrofit2demo.activity.RxJavaGitHubActivity;
 import com.xpf.rxjavaretrofit2demo.activity.RxJavaHelloWorldActivity;
 import com.xpf.rxjavaretrofit2demo.activity.SimpleRetrofit;
 import com.xpf.rxjavaretrofit2demo.activity.VolleyDemoActivity;
+import com.xpf.rxjavaretrofit2demo.ui.operator.RxJava2ConditionOperatorActivity;
 import com.xpf.rxjavaretrofit2demo.ui.operator.RxJavaOperatorActivity;
 
 import butterknife.BindView;
@@ -50,6 +51,8 @@ public class MainActivity extends Activity {
     Button get8;
     @BindView(R.id.get9)
     Button get9;
+    @BindView(R.id.get10)
+    Button get10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class MainActivity extends Activity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.get0, R.id.get5, R.id.get6, R.id.get7, R.id.get8, R.id.get9, R.id.tvHelloWorld,
+    @OnClick({R.id.get0, R.id.get5, R.id.get6, R.id.get7, R.id.get8, R.id.get9,R.id.get10,  R.id.tvHelloWorld,
             R.id.btnObservable, R.id.btnFlowable, R.id.btnRxJavaGitHub})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -81,6 +84,9 @@ public class MainActivity extends Activity {
                 break;
             case R.id.get9:
                 jumpToActivity(RxJavaOperatorActivity.class);
+                break;
+            case R.id.get10:
+                jumpToActivity(RxJava2ConditionOperatorActivity.class);
                 break;
             case R.id.tvHelloWorld:
                 jumpToActivity(RxJavaHelloWorldActivity.class);
