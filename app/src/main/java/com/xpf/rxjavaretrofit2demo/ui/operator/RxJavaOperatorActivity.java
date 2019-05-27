@@ -36,12 +36,6 @@ public class RxJavaOperatorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rx_java_operator);
         ButterKnife.bind(this);
 
-        // 1.实例化一个 Button
-        findViewById(R.id.button).setOnClickListener(v -> {
-
-        });
-
-
         //createObservable();
         //iterable();
         //fromFuture();
@@ -49,6 +43,7 @@ public class RxJavaOperatorActivity extends AppCompatActivity {
         //repeatWhen();
         //repeatUntil();
         //flatMap();
+        flatMap2();
         //buffer();
         //window();
         //first();
@@ -59,7 +54,34 @@ public class RxJavaOperatorActivity extends AppCompatActivity {
         //elementAt();
         //distinct();
         //distinctUntilChanged();
-        debounce();
+        //debounce();
+    }
+
+    /**
+     * 根据输入的字符串获取网站列表，并打印出网站名称
+     */
+    private void flatMap2() {
+        query("Hello, world!")
+                .flatMap(urls -> Observable.fromIterable(urls))
+                .flatMap(url -> getTitle(url))
+                .subscribe(title -> LogUtil.i(TAG, "onNext():" + title));
+    }
+
+    private Observable<String> getTitle(String url) {
+        String title = "网站名称";
+        if ("https://www.baidu.com".equals(url)) {
+            title = "百度";
+        } else if ("https://www.google.com".equals(url)) {
+            title = "谷歌";
+        }
+        return Observable.just(title);
+    }
+
+    private Observable<List<String>> query(String text) {
+        List<String> list = new ArrayList<>();
+        list.add("https://www.baidu.com");
+        list.add("https://www.google.com");
+        return Observable.just(list);
     }
 
     /**
