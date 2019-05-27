@@ -2,6 +2,7 @@ package com.xpf.rxjavaretrofit2demo.ui.operator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.xpf.rxjavaretrofit2demo.R;
 import com.xpf.rxjavaretrofit2demo.bean.Translation;
@@ -56,7 +57,37 @@ public class RxJavaNetRequestActivity extends AppCompatActivity {
         initData();
         //requestByConditionLoop();
         //requestByTimes();
-        requestByTryWhen();
+        //requestByTryWhen();
+        requestByFlatMap();
+    }
+
+    private void requestByFlatMap() {
+        final Observable<Translation> observable1 = mRequest.register();
+        final Observable<Translation> observable2 = mRequest.login();
+
+        observable1
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(result -> {
+                    Log.d(TAG, "第1次网络请求成功");
+                    result.show(); // 对第1次网络请求返回的结果进行操作 = 显示翻译结果
+                })
+                // （新被观察者，同时也是新观察者）切换到IO线程去发起登录请求
+                .observeOn(Schedulers.io())
+                // 特别注意：因为flatMap是对初始被观察者作变换，所以对于旧被观察者，它是新观察者，所以通过observeOn切换线程
+                // 但对于初始观察者，它则是新的被观察者
+                // 作变换，即作嵌套网络请求
+                .flatMap((Function<Translation, ObservableSource<Translation>>) result -> {
+                    // 将网络请求1转换成网络请求2，即发送网络请求2
+                    return observable2;
+                })
+                // （初始观察者）切换到主线程 处理网络请求2的结果
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    Log.d(TAG, "第2次网络请求成功");
+                    // 对第2次网络请求返回的结果进行操作 = 显示翻译结果
+                    result.show();
+                }, throwable -> LogUtil.e(TAG, "登录失败!"));
     }
 
     private void requestByTryWhen() {
