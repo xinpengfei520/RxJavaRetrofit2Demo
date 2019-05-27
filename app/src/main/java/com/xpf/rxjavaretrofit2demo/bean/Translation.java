@@ -10,7 +10,7 @@ public class Translation {
 
     private static final String TAG = "Translation";
     private int status;
-    private content content;
+    private Content content;
 
     public static String getTAG() {
         return TAG;
@@ -24,15 +24,15 @@ public class Translation {
         this.status = status;
     }
 
-    public Translation.content getContent() {
+    public Content getContent() {
         return content;
     }
 
-    public void setContent(Translation.content content) {
+    public void setContent(Content content) {
         this.content = content;
     }
 
-    private static class content {
+    private static class Content {
         private String from;
         private String to;
         private String vendor;
