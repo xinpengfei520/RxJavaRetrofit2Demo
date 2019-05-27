@@ -43,7 +43,9 @@ public class RxJavaOperatorActivity extends AppCompatActivity {
         //repeatWhen();
         //repeatUntil();
         //flatMap();
-        flatMap2();
+        //flatMap2();
+        flatMap3();
+        //concatMap();
         //buffer();
         //window();
         //first();
@@ -55,6 +57,46 @@ public class RxJavaOperatorActivity extends AppCompatActivity {
         //distinct();
         //distinctUntilChanged();
         //debounce();
+    }
+
+    /**
+     * 采用flatMap（）变换操作符
+     * 输出的顺序可能是交叉的
+     */
+    private void flatMap3() {
+        Observable.create((ObservableOnSubscribe<Integer>) emitter -> {
+            emitter.onNext(1);
+            emitter.onNext(2);
+            emitter.onNext(3);
+        }).flatMap((Function<Integer, ObservableSource<String>>) integer -> {
+            final List<String> list = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                list.add("我是事件 " + integer + "拆分后的子事件" + i);
+                // 通过flatMap中将被观察者生产的事件序列先进行拆分，再将每个事件转换为一个新的发送三个String事件
+                // 最终合并，再发送给被观察者
+            }
+            return Observable.fromIterable(list);
+        }).subscribe(s -> LogUtil.i(TAG, "s===" + s));
+    }
+
+    /**
+     * 采用RxJava基于事件流的链式操作，采用concatMap（）变换操作符
+     * 输出的顺序和发射的顺序是一致的
+     */
+    private void concatMap() {
+        Observable.create((ObservableOnSubscribe<Integer>) emitter -> {
+            emitter.onNext(1);
+            emitter.onNext(2);
+            emitter.onNext(3);
+        }).concatMap((Function<Integer, ObservableSource<String>>) integer -> {
+            final List<String> list = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                list.add("我是事件 " + integer + "拆分后的子事件" + i);
+                // 通过concatMap中将被观察者生产的事件序列先进行拆分，再将每个事件转换为一个新的发送三个String事件
+                // 最终合并，再发送给被观察者
+            }
+            return Observable.fromIterable(list);
+        }).subscribe(s -> LogUtil.d(TAG, s));
     }
 
     /**
