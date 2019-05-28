@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.xpf.rxjavaretrofit2demo.R;
+import com.xpf.rxjavaretrofit2demo.bean.Student;
 import com.xpf.rxjavaretrofit2demo.bean.User;
 import com.xpf.rxjavaretrofit2demo.utils.LogUtil;
 
@@ -44,7 +45,8 @@ public class RxJavaOperatorActivity extends AppCompatActivity {
         //repeatUntil();
         //flatMap();
         //flatMap2();
-        flatMap3();
+        //flatMap3();
+        flatMap4();
         //concatMap();
         //buffer();
         //window();
@@ -57,6 +59,51 @@ public class RxJavaOperatorActivity extends AppCompatActivity {
         //distinct();
         //distinctUntilChanged();
         //debounce();
+    }
+
+    private void flatMap4() {
+        Student student1 = new Student();
+
+        List<Student.Course> list1 = new ArrayList<>();
+        list1.add(new Student.Course("语文1"));
+        list1.add(new Student.Course("数学1"));
+        list1.add(new Student.Course("英语1"));
+        list1.add(new Student.Course("物理1"));
+        list1.add(new Student.Course("化学1"));
+
+        student1.setName("张三");
+        student1.setCourses(list1);
+
+        Student student2 = new Student();
+
+        List<Student.Course> list2 = new ArrayList<>();
+        list2.add(new Student.Course("语文2"));
+        list2.add(new Student.Course("数学2"));
+        list2.add(new Student.Course("英语2"));
+
+        student2.setName("李四");
+        student2.setCourses(list2);
+
+        List<Student> studentList = new ArrayList<>();
+        studentList.add(student1);
+        studentList.add(student2);
+
+        Observable.just(studentList)
+                .flatMap((Function<List<Student>, ObservableSource<Student>>) students -> Observable.fromIterable(students))
+                .flatMap((Function<Student, ObservableSource<Student.Course>>) student -> {
+                    LogUtil.i(TAG, "student name===" + student.getName());
+                    return Observable.fromIterable(student.getCourses());
+                })
+                .subscribe(course -> LogUtil.i(TAG, "course===" + course.getCourseName()));
+
+
+        Observable.just(studentList)
+                .concatMap((Function<List<Student>, ObservableSource<Student>>) students -> Observable.fromIterable(students))
+                .concatMap((Function<Student, ObservableSource<Student.Course>>) student -> {
+                    LogUtil.i(TAG, "student name===" + student.getName());
+                    return Observable.fromIterable(student.getCourses());
+                })
+                .subscribe(course -> LogUtil.i(TAG, "course===" + course.getCourseName()));
     }
 
     /**
