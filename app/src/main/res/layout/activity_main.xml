@@ -152,6 +152,16 @@
                 android:text="RxJavaNetRequest"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/get14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
+                android:text="RxJava2MergeOperator"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
     </ScrollView>
