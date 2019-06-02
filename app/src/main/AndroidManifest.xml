@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.operator.RxJavaDisposableActivity"></activity>
+        <activity android:name=".ui.operator.RxJavaTransformerActivity"></activity>
+        <activity android:name=".ui.operator.RxJavaDisposableActivity" />
         <activity android:name=".ui.operator.RxJavaBackPressure" />
         <activity android:name=".ui.operator.RxJava2MergeOperator" />
         <activity android:name=".ui.operator.RxJavaNetRequestActivity" />

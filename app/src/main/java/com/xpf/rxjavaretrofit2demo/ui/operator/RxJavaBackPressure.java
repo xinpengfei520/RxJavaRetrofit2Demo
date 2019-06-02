@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xpf.rxjavaretrofit2demo.R;
 import com.xpf.rxjavaretrofit2demo.utils.LogUtil;
+import com.xpf.rxjavaretrofit2demo.utils.RxJavaUtils;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -60,8 +61,7 @@ public class RxJavaBackPressure extends AppCompatActivity {
                 emitter.onNext(i);
             }
         }, BackpressureStrategy.ERROR)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxJavaUtils.INSTANCE.flowableToMain())
                 .subscribe(integer -> LogUtil.i(TAG, "integer:" + integer),
                         throwable -> LogUtil.e(TAG, "onError:" + throwable.getMessage()),
                         () -> LogUtil.i(TAG, "onComplete()"));

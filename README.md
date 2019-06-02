@@ -221,6 +221,15 @@ Map 作为请求的 Body
                 });
 ```
 
+## 3.Open Source Rx Library
+
+[RxLifecycle](https://github.com/trello/RxLifecycle)
+
+[AutoDispose](https://github.com/uber/AutoDispose)
+
+[RxJavaInAction](https://github.com/fengzhizi715/RxJavaInAction)
+
+
 ## TODO
 
 outside flexible config & RetrofitHelper need Application Context.

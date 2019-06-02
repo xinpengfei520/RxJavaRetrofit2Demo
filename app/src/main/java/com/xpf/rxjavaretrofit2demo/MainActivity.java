@@ -23,6 +23,7 @@ import com.xpf.rxjavaretrofit2demo.ui.operator.RxJavaBackPressure;
 import com.xpf.rxjavaretrofit2demo.ui.operator.RxJavaDisposableActivity;
 import com.xpf.rxjavaretrofit2demo.ui.operator.RxJavaNetRequestActivity;
 import com.xpf.rxjavaretrofit2demo.ui.operator.RxJavaOperatorActivity;
+import com.xpf.rxjavaretrofit2demo.ui.operator.RxJavaTransformerActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,6 +72,8 @@ public class MainActivity extends Activity {
     Button get15;
     @BindView(R.id.get16)
     Button get16;
+    @BindView(R.id.get17)
+    Button get17;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +83,7 @@ public class MainActivity extends Activity {
     }
 
     @OnClick({R.id.get0, R.id.get5, R.id.get6, R.id.get7, R.id.get8, R.id.get9, R.id.get10, R.id.get11,
-            R.id.get12, R.id.get13, R.id.get14, R.id.get15, R.id.get16, R.id.tvHelloWorld, R.id.btnObservable, R.id.btnFlowable, R.id.btnRxJavaGitHub})
+            R.id.get12, R.id.get13, R.id.get14, R.id.get15, R.id.get16, R.id.get17, R.id.tvHelloWorld, R.id.btnObservable, R.id.btnFlowable, R.id.btnRxJavaGitHub})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.get0:
@@ -123,6 +126,9 @@ public class MainActivity extends Activity {
                 break;
             case R.id.get16:
                 jumpToActivity(RxJavaDisposableActivity.class);
+                break;
+            case R.id.get17:
+                jumpToActivity(RxJavaTransformerActivity.class);
                 break;
             case R.id.tvHelloWorld:
                 jumpToActivity(RxJavaHelloWorldActivity.class);
