@@ -3,9 +3,10 @@ package com.xpf.rxjavaretrofit2demo.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.orhanobut.logger.Logger;
 import com.xpf.rxjavaretrofit2demo.R;

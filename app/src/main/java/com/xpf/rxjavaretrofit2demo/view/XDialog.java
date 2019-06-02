@@ -2,7 +2,7 @@ package com.xpf.rxjavaretrofit2demo.view;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Created by xpf on 2017/12/28 :)

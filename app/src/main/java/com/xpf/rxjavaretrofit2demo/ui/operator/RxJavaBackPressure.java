@@ -1,7 +1,8 @@
 package com.xpf.rxjavaretrofit2demo.ui.operator;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.xpf.rxjavaretrofit2demo.R;
 import com.xpf.rxjavaretrofit2demo.utils.LogUtil;
@@ -13,7 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by x-sir on 2016-12-21 :)
+ * Created by x-sir on 2019-06-02 :)
  * Function:RxJava 2.x 背压
  * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */

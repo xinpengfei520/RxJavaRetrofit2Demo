@@ -1,8 +1,9 @@
 package com.xpf.android.retrofit.mvp.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.xpf.android.retrofit.mvp.factory.IPresenterFactory;
 import com.xpf.android.retrofit.mvp.factory.PresenterFactoryImpl;
