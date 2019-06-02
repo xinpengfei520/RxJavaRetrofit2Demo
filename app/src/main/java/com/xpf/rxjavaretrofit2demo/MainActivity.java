@@ -19,6 +19,7 @@ import com.xpf.rxjavaretrofit2demo.ui.operator.CombineOperatorActivity;
 import com.xpf.rxjavaretrofit2demo.ui.operator.EstablishOperatorActivity;
 import com.xpf.rxjavaretrofit2demo.ui.operator.RxJava2ConditionOperatorActivity;
 import com.xpf.rxjavaretrofit2demo.ui.operator.RxJava2MergeOperator;
+import com.xpf.rxjavaretrofit2demo.ui.operator.RxJavaBackPressure;
 import com.xpf.rxjavaretrofit2demo.ui.operator.RxJavaNetRequestActivity;
 import com.xpf.rxjavaretrofit2demo.ui.operator.RxJavaOperatorActivity;
 
@@ -65,6 +66,8 @@ public class MainActivity extends Activity {
     Button get13;
     @BindView(R.id.get14)
     Button get14;
+    @BindView(R.id.get15)
+    Button get15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +77,7 @@ public class MainActivity extends Activity {
     }
 
     @OnClick({R.id.get0, R.id.get5, R.id.get6, R.id.get7, R.id.get8, R.id.get9, R.id.get10, R.id.get11,
-            R.id.get12, R.id.get13,R.id.get14, R.id.tvHelloWorld, R.id.btnObservable, R.id.btnFlowable, R.id.btnRxJavaGitHub})
+            R.id.get12, R.id.get13, R.id.get14, R.id.get15, R.id.tvHelloWorld, R.id.btnObservable, R.id.btnFlowable, R.id.btnRxJavaGitHub})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.get0:
@@ -111,6 +114,9 @@ public class MainActivity extends Activity {
                 break;
             case R.id.get14:
                 jumpToActivity(RxJava2MergeOperator.class);
+                break;
+            case R.id.get15:
+                jumpToActivity(RxJavaBackPressure.class);
                 break;
             case R.id.tvHelloWorld:
                 jumpToActivity(RxJavaHelloWorldActivity.class);

@@ -15,7 +15,11 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observables.ConnectableObservable;
 
-
+/**
+ * Created by x-sir on 2019-05-28 :)
+ * Function:RxJava2.x merge operator
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
+ */
 public class RxJava2MergeOperator extends AppCompatActivity {
 
     private static final String TAG = "RxJava2MergeOperator";

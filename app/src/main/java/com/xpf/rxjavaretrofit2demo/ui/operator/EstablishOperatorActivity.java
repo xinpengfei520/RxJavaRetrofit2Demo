@@ -15,7 +15,9 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * 不同场景下的操作符练习
+ * Created by x-sir on 2019-05-30 :)
+ * Function:不同场景下的操作符练习
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class EstablishOperatorActivity extends AppCompatActivity {
 

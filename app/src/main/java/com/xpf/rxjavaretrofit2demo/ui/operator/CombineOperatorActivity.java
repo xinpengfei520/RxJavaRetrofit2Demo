@@ -20,7 +20,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 /**
- * RxJava2.x 组合操作符
+ * Created by x-sir on 2019-05-31 :)
+ * Function:RxJava2.x 组合操作符
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class CombineOperatorActivity extends AppCompatActivity {
 
@@ -75,14 +77,15 @@ public class CombineOperatorActivity extends AppCompatActivity {
                     public void onSubscribe(Disposable d) {
 
                     }
+
                     @Override
                     public void onNext(CharSequence charSequence) {
-                        LogUtil.i(TAG,"发送给服务器的字符 = " + charSequence.toString());
+                        LogUtil.i(TAG, "发送给服务器的字符 = " + charSequence.toString());
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtil.d(TAG, "对Error事件作出响应" );
+                        LogUtil.d(TAG, "对Error事件作出响应");
 
                     }
 

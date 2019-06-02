@@ -11,7 +11,9 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 
 /**
- * RxJava2.x 条件操作符（会根据条件进行数据发射或变换被观察者），布尔操作符（返回的结果全部为 boolean 值）
+ * Created by x-sir on 2019-05-29 :)
+ * Function:RxJava2.x 条件操作符（会根据条件进行数据发射或变换被观察者），布尔操作符（返回的结果全部为 boolean 值）
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class RxJava2ConditionOperatorActivity extends AppCompatActivity {
 

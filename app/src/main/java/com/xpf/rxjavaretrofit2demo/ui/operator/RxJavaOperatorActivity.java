@@ -25,7 +25,9 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
 /**
- * RxJava2.x 创建、转换操作符
+ * Created by x-sir on 2019-05-21 :)
+ * Function:RxJava2.x 创建、转换操作符
+ * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class RxJavaOperatorActivity extends AppCompatActivity {
 
