@@ -13,7 +13,8 @@ import io.reactivex.functions.Function;
 
 /**
  * Created by x-sir on 2019-06-02 :)
- * Function:RxJava 2.x RxJavaTransformer (转换器)
+ * Function:RxJava 2.x RxJavaTransformer (转换器，它能够将一个 Observable、Flowable、Single、Completable、
+ * Maybe 对象转换成另一个 Observable、Flowable、Single、Completable、Maybe 对象)
  * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */
 public class RxJavaTransformerActivity extends AppCompatActivity {
