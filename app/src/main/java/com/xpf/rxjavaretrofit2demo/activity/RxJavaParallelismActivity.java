@@ -99,14 +99,14 @@ public class RxJavaParallelismActivity extends AppCompatActivity {
     }
 
     /**
-     * 并发（concurrency）是指一个处理器同时处理多个任务，并行（parallelismWithJava8）是多个处理器或者是多核处理器同时处理多个
+     * 并发（concurrency）是指一个处理器同时处理多个任务，并行（parallelism）是多个处理器或者是多核处理器同时处理多个
      * 不同的任务，并行是同时发生的多个并发事件，具有并发的含义，而并发不一定是并行。
      */
     @TargetApi(24)
     private void parallelismWithJava8() {
         List<Integer> list = new ArrayList<>();
 
-        for (int i = 0; i <= 100; i++) {
+        for (int i = 1; i <= 100; i++) {
             list.add(i);
         }
 
