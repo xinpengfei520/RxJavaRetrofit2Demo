@@ -1,6 +1,6 @@
 package com.xpf.rxjavaretrofit2demo.utils;
 
-import com.xpf.rxjavaretrofit2demo.bean.Cache;
+import com.safframework.cache.Cache;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import io.reactivex.FlowableTransformer;
 import io.reactivex.functions.Function;
 
 /**
- * Created by x-sir on 2019-06-02 :)
+ * Created by x-sir on 2019-06-04 :)
  * Function:
  */
 public class RxCache {
@@ -19,5 +19,4 @@ public class RxCache {
             return t;
         });
     }
-
 }
