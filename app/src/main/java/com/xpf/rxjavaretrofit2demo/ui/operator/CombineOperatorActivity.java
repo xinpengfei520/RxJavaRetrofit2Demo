@@ -11,14 +11,18 @@ import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.xpf.rxjavaretrofit2demo.R;
 import com.xpf.rxjavaretrofit2demo.utils.LogUtil;
+import com.xpf.rxjavaretrofit2demo.utils.RxUtils;
 import com.xpf.rxjavaretrofit2demo.utils.ToastUtil;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by x-sir on 2019-05-31 :)
@@ -31,7 +35,9 @@ public class CombineOperatorActivity extends AppCompatActivity {
     private EditText etName;
     private EditText etAge;
     private EditText etGender;
+    private EditText etCode;
     private Button btnCommit;
+    private Button btnSend;
     /**
      * 模拟内存缓存 & 磁盘缓存中的数据
      */
@@ -42,6 +48,8 @@ public class CombineOperatorActivity extends AppCompatActivity {
      */
     private String result = "数据源来自===";
 
+    private long MAX_COUNT_TIME = 60;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +58,8 @@ public class CombineOperatorActivity extends AppCompatActivity {
         etAge = findViewById(R.id.etAge);
         etGender = findViewById(R.id.etGender);
         btnCommit = findViewById(R.id.btnCommit);
+        etCode = findViewById(R.id.etCode);
+        btnSend = findViewById(R.id.btnSend);
 
         initListener();
         //threeLevelCache();
@@ -59,9 +69,15 @@ public class CombineOperatorActivity extends AppCompatActivity {
 
     private void initListener() {
         RxView.clicks(btnCommit)
-                .throttleFirst(1, TimeUnit.SECONDS)
+                //.throttleFirst(1, TimeUnit.SECONDS)
+                .compose(RxUtils.useRxViewTransformer(CombineOperatorActivity.this))
                 .subscribe(o -> {
                     ToastUtil.showShort("提交成功~");
+                });
+
+        RxView.longClicks(btnCommit)
+                .subscribe(o -> {
+                    ToastUtil.showShort("我被长按了~");
                 });
 
         /*
@@ -95,6 +111,31 @@ public class CombineOperatorActivity extends AppCompatActivity {
                         LogUtil.d(TAG, "对Complete事件作出响应");
                     }
                 });
+
+        /**
+         * 实际中，需要在 flatMap 中联网获取短信验证码
+         */
+        RxView.clicks(btnSend)
+                .throttleFirst(MAX_COUNT_TIME, TimeUnit.SECONDS)
+                .flatMap((Function<Object, ObservableSource<Long>>) o -> {
+                    // 更新发送按钮的状态，并初始化显现倒计时文字
+                    RxView.enabled(btnSend).accept(false);
+                    RxTextView.text(btnSend).accept(MAX_COUNT_TIME + " S");
+                    // 返回 N 秒内的倒计时观察者对象
+                    return Observable
+                            .interval(1, TimeUnit.SECONDS, Schedulers.io())
+                            .take(MAX_COUNT_TIME);
+                })
+                .map(aLong -> MAX_COUNT_TIME - (aLong + 1))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aLong -> {
+                    if (aLong == 0) {
+                        RxView.enabled(btnSend).accept(true);
+                        RxTextView.text(btnSend).accept("发送");
+                    } else {
+                        RxTextView.text(btnSend).accept(aLong + " S");
+                    }
+                });
     }
 
     private void combineLatest() {
@@ -110,7 +151,7 @@ public class CombineOperatorActivity extends AppCompatActivity {
         Observable<CharSequence> genderObservable = RxTextView.textChanges(etGender).skip(1);
 
         /*
-         * 步骤3：通过combineLatest（）合并事件 & 联合判断
+         * 步骤3：通过combineLatest（）合并事件 & 联合判断，只要内容发生变化就会发送 Observable
          **/
         Observable.combineLatest(nameObservable, ageObservable, genderObservable, (charSequence, charSequence2, charSequence3) -> {
 
