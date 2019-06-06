@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.xpf.rxjavaretrofit2demo.activity.RxBindingRecyclerView;
 import com.xpf.rxjavaretrofit2demo.activity.RxJavaParallelismActivity;
 import com.xpf.rxjavaretrofit2demo.ui.movie.view.MovieFlowableActivity;
 import com.xpf.rxjavaretrofit2demo.activity.HttpUrlConnectionActivity;
@@ -77,6 +78,8 @@ public class MainActivity extends Activity {
     Button get17;
     @BindView(R.id.get18)
     Button get18;
+    @BindView(R.id.get19)
+    Button get19;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +89,8 @@ public class MainActivity extends Activity {
     }
 
     @OnClick({R.id.get0, R.id.get5, R.id.get6, R.id.get7, R.id.get8, R.id.get9, R.id.get10, R.id.get11,
-            R.id.get12, R.id.get13, R.id.get14, R.id.get15, R.id.get16, R.id.get17, R.id.get18, R.id.tvHelloWorld, R.id.btnObservable, R.id.btnFlowable, R.id.btnRxJavaGitHub})
+            R.id.get12, R.id.get13, R.id.get14, R.id.get15, R.id.get16, R.id.get17, R.id.get18,
+            R.id.get19, R.id.tvHelloWorld, R.id.btnObservable, R.id.btnFlowable, R.id.btnRxJavaGitHub})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.get0:
@@ -135,6 +139,9 @@ public class MainActivity extends Activity {
                 break;
             case R.id.get18:
                 jumpToActivity(RxJavaParallelismActivity.class);
+                break;
+            case R.id.get19:
+                jumpToActivity(RxBindingRecyclerView.class);
                 break;
             case R.id.tvHelloWorld:
                 jumpToActivity(RxJavaHelloWorldActivity.class);

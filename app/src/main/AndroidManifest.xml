@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.RxJavaParallelismActivity"></activity>
+        <activity android:name=".activity.RxBindingRecyclerView"></activity>
+        <activity android:name=".activity.RxJavaParallelismActivity" />
         <activity android:name=".ui.operator.RxJavaTransformerActivity" />
         <activity android:name=".ui.operator.RxJavaDisposableActivity" />
         <activity android:name=".ui.operator.RxJavaBackPressure" />
