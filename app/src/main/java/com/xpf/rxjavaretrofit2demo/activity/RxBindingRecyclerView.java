@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 
 /**
- * Created by x-sir on 2019-06-03 :)
+ * Created by x-sir on 2019-06-06 :)
  * Function:RxBindingRecyclerView
  * {@link # https://github.com/xinpengfei520/RxJavaRetrofit2Demo}
  */

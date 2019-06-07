@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--默认配置，明文通信，使用系统证书-->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <!--trust system while release only-->
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>
