@@ -222,6 +222,16 @@
                 android:text="RxAndroid"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/get21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimary"
+                android:text="CityWeather"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
     </ScrollView>

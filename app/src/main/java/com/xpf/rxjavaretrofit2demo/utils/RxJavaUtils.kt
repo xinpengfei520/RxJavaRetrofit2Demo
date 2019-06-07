@@ -1,6 +1,7 @@
 package com.xpf.rxjavaretrofit2demo.utils
 
 import io.reactivex.FlowableTransformer
+import io.reactivex.MaybeTransformer
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -27,6 +28,16 @@ object RxJavaUtils {
      */
     fun <T> flowableToMain(): FlowableTransformer<T, T> {
         return FlowableTransformer { upstream ->
+            upstream.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+        }
+    }
+
+    /**
+     * Maybe 切换到主线程
+     */
+    fun <T> maybeToMain(): MaybeTransformer<T, T> {
+        return MaybeTransformer { upstream ->
             upstream.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
         }
