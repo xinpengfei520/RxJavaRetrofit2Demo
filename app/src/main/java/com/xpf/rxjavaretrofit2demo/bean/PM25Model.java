@@ -19,8 +19,8 @@ public class PM25Model {
 
     public String aqi;
     public String area;
-    public String pm2_5;
-    public String pm2_5_24h;
+    public String pm25;
+    public String pm25_24h;
     public String position_name;
     public String primary_pollutant;
     public String quality;

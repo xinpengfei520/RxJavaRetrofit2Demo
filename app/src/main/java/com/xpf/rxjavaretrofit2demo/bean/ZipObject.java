@@ -6,9 +6,9 @@ package com.xpf.rxjavaretrofit2demo.bean;
  */
 public class ZipObject {
 
-    public String pm2_5_quality;
-    public String pm2_5;
-    public String pm2_5_24h;
+    public String pm25_quality;
+    public String pm25;
+    public String pm25_24h;
     public String pm10;
     public String pm10_24h;
     public String so2;

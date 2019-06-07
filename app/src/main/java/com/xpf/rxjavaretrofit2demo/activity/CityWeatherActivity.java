@@ -35,9 +35,9 @@ public class CityWeatherActivity extends AppCompatActivity {
     private static final String TAG = "CityWeatherActivity";
     private static final String CITY_ID = "shanghai";
     private static final String TOKEN = "5j1znBVAsnSf5xQyNQyq";
-    private static final String API_PM25 = "http://www.pm25.in/api/querys/pm2_5.json";
-    private static final String API_PM10 = "http://www.pm25.in/api/querys/pm10.json";
-    private static final String API_SO2 = "http://www.pm25.in/api/querys/so2.json";
+    private static final String API_PM25 = "http://api.x-sir.com/iMoney/pm25";
+    private static final String API_PM10 = "http://api.x-sir.com/iMoney/pm10";
+    private static final String API_SO2 = "http://api.x-sir.com/iMoney/so2";
 
     @BindView(R.id.tvCity)
     TextView tvCity;
@@ -68,7 +68,7 @@ public class CityWeatherActivity extends AppCompatActivity {
                         .filter(pm10Models -> pm10Models != null && pm10Models.size() > 0)
                         .flatMap((Function<List<PM25Model>, MaybeSource<PM25Model>>) pm25Models -> {
                             for (PM25Model pM25Model : pm25Models) {
-                                if ("南门".equals(pM25Model.position_name)) {
+                                if ("浦东张江".equals(pM25Model.position_name)) {
                                     return Maybe.just(pM25Model);
                                 }
                             }
@@ -84,7 +84,7 @@ public class CityWeatherActivity extends AppCompatActivity {
                         .filter(pm10Models -> pm10Models != null && pm10Models.size() > 0)
                         .flatMap((Function<List<PM10Model>, MaybeSource<PM10Model>>) pm10Models -> {
                             for (PM10Model pM10Model : pm10Models) {
-                                if ("南门".equals(pM10Model.position_name)) {
+                                if ("浦东张江".equals(pM10Model.position_name)) {
                                     return Maybe.just(pM10Model);
                                 }
                             }
@@ -100,7 +100,7 @@ public class CityWeatherActivity extends AppCompatActivity {
                         .filter(pm10Models -> pm10Models != null && pm10Models.size() > 0)
                         .flatMap((Function<List<SO2Model>, MaybeSource<SO2Model>>) so2Models -> {
                             for (SO2Model so2Model : so2Models) {
-                                if ("南门".equals(so2Model.position_name)) {
+                                if ("浦东张江".equals(so2Model.position_name)) {
                                     return Maybe.just(so2Model);
                                 }
                             }
@@ -111,18 +111,18 @@ public class CityWeatherActivity extends AppCompatActivity {
         Disposable disposable =
                 Maybe.zip(pm25ModelMaybe, pm10ModelMaybe, so2ModelMaybe, (pm25Model, pm10Model, so2Model) -> {
                     ZipObject zipObject = new ZipObject();
-                    zipObject.pm2_5_quality = pm25Model.quality;
-                    zipObject.pm2_5 = pm25Model.pm2_5;
-                    zipObject.pm2_5_24h = pm25Model.pm2_5_24h;
+                    zipObject.pm25_quality = pm25Model.quality;
+                    zipObject.pm25 = pm25Model.pm25;
+                    zipObject.pm25_24h = pm25Model.pm25_24h;
                     zipObject.pm10 = pm10Model.pm10;
-                    zipObject.pm2_5_24h = pm10Model.pm10_24h;
+                    zipObject.pm10_24h = pm10Model.pm10_24h;
                     zipObject.so2 = so2Model.so2;
                     zipObject.so2_24h = so2Model.so2_24h;
                     return zipObject;
                 }).subscribe(zipObject -> {
                     if (zipObject != null) {
-                        tvQuality.setText("空气质量指数：" + zipObject.pm2_5_quality);
-                        tvPM25.setText("PM2.5：" + zipObject.pm2_5);
+                        tvQuality.setText("空气质量指数：" + zipObject.pm25_quality);
+                        tvPM25.setText("PM2.5：" + zipObject.pm25);
                     }
                 }, throwable -> LogUtil.e(TAG, "onError:" + throwable.getMessage()));
 
