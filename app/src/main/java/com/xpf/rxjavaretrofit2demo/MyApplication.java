@@ -1,7 +1,9 @@
 package com.xpf.rxjavaretrofit2demo;
 
-import android.app.Application;
 import android.content.Context;
+
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -11,7 +13,7 @@ import com.safframework.cache.Cache;
  * Created by xpf on 2017/12/28 :)
  * Function:
  */
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
     private static Context mContext;
     private static MyApplication instance;
@@ -32,5 +34,11 @@ public class MyApplication extends Application {
 
     public static MyApplication getInstance() {
         return instance;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

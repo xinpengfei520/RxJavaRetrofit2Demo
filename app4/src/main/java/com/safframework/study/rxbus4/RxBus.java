@@ -1,4 +1,4 @@
-package com.xpf.rxjavaretrofit2demo.eventbus;
+package com.safframework.study.rxbus4;
 
 import com.jakewharton.rxrelay2.PublishRelay;
 import com.jakewharton.rxrelay2.Relay;
@@ -7,56 +7,47 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by x-sir on 2019-06-08 :)
- * Function:静态内部类实现单例，保证线程安全
+ * Created by Tony Shen on 2017/6/14.
  */
+
 public class RxBus {
 
-    private Relay<Object> mBus;
+    private Relay<Object> bus = null;
     private final Map<Class<?>, Object> mStickyEventMap;
 
+    //禁用构造方法
     private RxBus() {
-        mBus = PublishRelay.create().toSerialized();
+        bus = PublishRelay.create().toSerialized();
         mStickyEventMap = new ConcurrentHashMap<>();
-    }
-
-    private static class Holder {
-        private static final RxBus BUS = new RxBus();
     }
 
     public static RxBus get() {
         return Holder.BUS;
     }
 
-    public void post(Object object) {
-        mBus.accept(object);
+    public void post(Object event) {
+        bus.accept(event);
     }
 
-    /**
-     * post sticky event.
-     *
-     * @param event event object.
-     */
     public void postSticky(Object event) {
         synchronized (mStickyEventMap) {
             mStickyEventMap.put(event.getClass(), event);
         }
-        mBus.accept(event);
+        bus.accept(event);
     }
 
-    public <T> Observable<T> toObservable(Class<T> tClass) {
-        return mBus.ofType(tClass);
-    }
-
-    public Observable<Object> toObservable() {
-        return mBus;
+    public <T> Observable<T> toObservable(Class<T> eventType) {
+        return bus.ofType(eventType);
     }
 
     /**
@@ -64,11 +55,16 @@ public class RxBus {
      */
     public <T> Observable<T> toObservableSticky(final Class<T> eventType) {
         synchronized (mStickyEventMap) {
-            Observable<T> observable = mBus.ofType(eventType);
+            Observable<T> observable = bus.ofType(eventType);
             final Object event = mStickyEventMap.get(eventType);
 
             if (event != null) {
-                return observable.mergeWith(Observable.create(e -> e.onNext(eventType.cast(event))));
+                return observable.mergeWith(Observable.create(new ObservableOnSubscribe<T>() {
+                    @Override
+                    public void subscribe(@NonNull ObservableEmitter<T> e) throws Exception {
+                        e.onNext(eventType.cast(event));
+                    }
+                }));
             } else {
                 return observable;
             }
@@ -76,7 +72,7 @@ public class RxBus {
     }
 
     public boolean hasObservers() {
-        return mBus.hasObservers();
+        return bus.hasObservers();
     }
 
     public <T> Disposable register(Class<T> eventType, Scheduler scheduler, Consumer<T> onNext) {
@@ -124,11 +120,11 @@ public class RxBus {
     }
 
     public <T> Disposable registerSticky(Class<T> eventType, Consumer<T> onNext, Consumer onError) {
-        return toObservableSticky(eventType).observeOn(AndroidSchedulers.mainThread()).subscribe(onNext, onError);
+        return toObservableSticky(eventType).observeOn(AndroidSchedulers.mainThread()).subscribe(onNext,onError);
     }
 
     /**
-     * 移除指定 eventType 的 Sticky 事件
+     * 移除指定eventType的Sticky事件
      */
     public <T> T removeStickyEvent(Class<T> eventType) {
         synchronized (mStickyEventMap) {
@@ -150,4 +146,9 @@ public class RxBus {
             disposable.dispose();
         }
     }
+
+    private static class Holder {
+        private static final RxBus BUS = new RxBus();
+    }
+
 }
