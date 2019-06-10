@@ -8,7 +8,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.jakewharton.rxbinding2.view.RxView;
-import com.safframework.log.L;
 import com.xpf.rxjavaretrofit2demo.R;
 import com.xpf.rxjavaretrofit2demo.bean.CrossActivityEvent;
 import com.xpf.rxjavaretrofit2demo.bean.ExceptionEvent;
@@ -58,8 +57,8 @@ public class RxBusCrossActivity extends AppCompatActivity {
                 RxBus.get()
                         .register(ExceptionEvent.class,
                                 AndroidSchedulers.mainThread(),
-                                event -> LogUtil.e(TAG, "accept()"),
-                                (Consumer<Throwable>) throwable -> L.i(throwable.getMessage()))
+                                event -> LogUtil.i(TAG, "accept()"),
+                                (Consumer<Throwable>) throwable -> LogUtil.e(TAG, "onError:" + throwable.getMessage()))
         );
     }
 

@@ -13,8 +13,14 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.RxBusStickyActivity"/>
-        <activity android:name=".activity.OtherPageActivity"/>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name=".activity.CrawlerActivity" />
+        <activity android:name=".activity.RxBusStickyActivity" />
+        <activity android:name=".activity.OtherPageActivity" />
         <activity android:name=".activity.RxBusCrossActivity" />
         <activity android:name=".activity.RxBusActivity" />
         <activity android:name=".activity.CityWeatherActivity" />

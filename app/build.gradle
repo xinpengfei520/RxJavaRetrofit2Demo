@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
+    useLibrary 'org.apache.http.legacy'
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
         applicationId "com.xpf.rxjavaretrofit2demo"
@@ -23,6 +24,17 @@ android {
     compileOptions {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
     }
 
 }
@@ -119,6 +131,7 @@ dependencies {
     // rxbus
 //    implementation 'com.hwangjr.rxbus:rxbus:1.0.6'
     implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.0'
+    implementation 'com.cv4j.piccrawler:crawler:1.0.0'
 
     implementation project(':retrofit-library')
 }
