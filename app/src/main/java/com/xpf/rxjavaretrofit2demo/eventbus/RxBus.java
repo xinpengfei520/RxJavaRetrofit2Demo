@@ -6,25 +6,39 @@ import com.jakewharton.rxrelay2.Relay;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.processors.FlowableProcessor;
+import io.reactivex.processors.PublishProcessor;
 
 /**
  * Created by x-sir on 2019-06-08 :)
- * Function:静态内部类实现单例，保证线程安全
+ * Function:RxBus 静态内部类实现单例，保证线程安全
  */
 public class RxBus {
 
+    /**
+     * 既是 Observable 又是 Consumer 类型，它没有 onComplete/onError 的 Subject
+     */
     private Relay<Object> mBus;
+    /**
+     * 用于缓存 Sticky 事件，它是线程安全的 HashMap
+     */
     private final Map<Class<?>, Object> mStickyEventMap;
+    /**
+     * 支持背压的 RxBus
+     */
+    private final FlowableProcessor<Object> mBackPressBus;
 
     private RxBus() {
         mBus = PublishRelay.create().toSerialized();
         mStickyEventMap = new ConcurrentHashMap<>();
+        mBackPressBus = PublishProcessor.create().toSerialized();
     }
 
     private static class Holder {
@@ -39,8 +53,13 @@ public class RxBus {
         mBus.accept(object);
     }
 
+    public void postByFlowable(Object object) {
+        mBackPressBus.onNext(object);
+    }
+
     /**
      * post sticky event.
+     * 粘性事件是指事件订阅者在事件发布之后再进行注册，也能收到消息的特殊类型
      *
      * @param event event object.
      */
@@ -57,6 +76,14 @@ public class RxBus {
 
     public Observable<Object> toObservable() {
         return mBus;
+    }
+
+    public <T> Flowable<T> toFlowable(Class<T> tClass) {
+        return mBackPressBus.ofType(tClass);
+    }
+
+    public Flowable<Object> toFlowable() {
+        return mBackPressBus;
     }
 
     /**
@@ -77,6 +104,10 @@ public class RxBus {
 
     public boolean hasObservers() {
         return mBus.hasObservers();
+    }
+
+    public boolean hasSubscribers() {
+        return mBackPressBus.hasSubscribers();
     }
 
     public <T> Disposable register(Class<T> eventType, Scheduler scheduler, Consumer<T> onNext) {
