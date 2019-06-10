@@ -13,7 +13,8 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CityWeatherActivity"></activity>
+        <activity android:name=".activity.RxBusActivity"></activity>
+        <activity android:name=".activity.CityWeatherActivity" />
         <activity android:name=".activity.RxAndroidActivity" />
         <activity android:name=".activity.RxBindingRecyclerView" />
         <activity android:name=".activity.RxJavaParallelismActivity" />
