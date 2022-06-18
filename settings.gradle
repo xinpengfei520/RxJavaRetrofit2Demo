@@ -1,1 +1,1 @@
-include ':app', ':retrofit-library', ':depend', ':framwork', ':mvvm'
+include ':app', ':retrofit-library', ':depend', ':framwork', ':mvvm', ':t-mvvm'
